@@ -5,7 +5,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 const domainDefault = 'http://localhost';
 
 export class AppConfigurationWithDB {
-  constructor(private env: { [k: string]: string | undefined }) {}
+  constructor(protected env: { [k: string]: string | undefined }) {}
 
   static requiredEnvironmentVars = [
     'APP_PORT',
@@ -72,11 +72,11 @@ export class AppConfigurationWithDB {
     return cfg;
   }
 
-  private getDirectoryRoot() {
+  protected getDirectoryRoot() {
     return process.env.NODE_ENV === 'migration' ? 'src' : `${__dirname}`;
   }
 
-  private getValue(key: string, throwOnMissing = true): string {
+  protected getValue(key: string, throwOnMissing = true): string {
     const value = this.env[key];
     if (!value && throwOnMissing) {
       throw new Error(`config error - missing env.${key}`);
