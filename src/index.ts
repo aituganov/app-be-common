@@ -1,3 +1,5 @@
 export * from './classes'
+export * from './decorators'
 export * from './entities'
+export * from './exceptions'
 // export * from './types'
