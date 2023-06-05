@@ -21,13 +21,7 @@ export class AppConfigurationWithDB {
     return this;
   }
 
-  isProduction(): boolean {
-    const mode = this.getValue('MODE', false);
-    return mode != 'DEV';
-  }
-
   getDataSourceOptions(): DataSourceOptions {
-    const root = this.getDirectoryRoot();
     return {
       type: 'postgres',
       host: this.getValue('DB_HOST'),
@@ -35,10 +29,10 @@ export class AppConfigurationWithDB {
       username: this.getValue('DB_USER'),
       password: this.getValue('DB_PWD'),
       database: this.getValue('DB_NAME'),
-      entities: [`${root}/**/*.entity{.ts,.js}`],
+      entities: this.getEntities(),
       logger: 'simple-console',
       logging: 'all',
-      migrations: [`${root}/migrations/*{.ts,.js}`],
+      migrations: this.getMigrations(),
       migrationsRun: true,
       migrationsTableName: 'migrations',
       synchronize: false,
@@ -72,8 +66,15 @@ export class AppConfigurationWithDB {
     return cfg;
   }
 
-  protected getDirectoryRoot() {
-    return process.env.NODE_ENV === 'migration' ? 'src' : `${__dirname}`;
+  protected isMigration() {
+    return process.env.NODE_ENV === 'migration';
+  }
+
+  protected getEntities() {
+    return [this.isMigration() ? 'src/**/*.entity.ts' : 'dist/**/*.entity.js'];
+  }
+  protected getMigrations() {
+      return [this.isMigration() ? 'src/migrations/*.ts' : 'dist/migrations/*.js'];
   }
 
   protected getValue(key: string, throwOnMissing = true): string {

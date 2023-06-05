@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
-import { BadRequestException } from '..';
+import { AppConfigurationWithDB, BadRequestException } from '..';
 
 @Injectable()
 export class TransactionService {
@@ -29,3 +29,11 @@ export class TransactionService {
     }
   }
 }
+
+export const makeFactory = (configuration: AppConfigurationWithDB) => ({
+  provide: TransactionService,
+  useFactory: async () => {
+    const ds = await configuration.getDataSource().initialize();
+    return new TransactionService(ds);
+  }
+});
