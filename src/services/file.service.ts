@@ -60,7 +60,7 @@ export class FileService {
     const filename = this.generateFileName(ext, prefixName);
 
     if (!(await this.isExist(uploadPath))) {
-      await promises.mkdir(uploadPath);
+      await promises.mkdir(uploadPath, { recursive: true });
     }
 
     await promises.writeFile(uploadPath + filename, base64Data, 'base64');
