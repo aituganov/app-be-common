@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto';
-import { constants, createWriteStream, promises } from 'fs';
+import { constants, createWriteStream, promises, unlink } from 'fs';
 
 export class FileService {
   protected filesRootDir: string;
@@ -41,13 +41,20 @@ export class FileService {
 
   async saveImageFromStream(stream: any, ext: string, prefixName?: string): Promise<string> {
     const innerDir = 'images/';
-    this.prepareDirectoryStructure(innerDir, prefixName);
+    const rootDir = await this.prepareDirectoryStructure(innerDir, prefixName);
     const fileName = this.generateFileName(ext, prefixName);
-    const writer = createWriteStream(fileName);
+    const fullPath = `${rootDir}${fileName}`;
+    const writer = createWriteStream(fullPath);
     stream.pipe(writer);
     return new Promise((resolve, reject) => {
-      writer.on('finish', () => resolve(this.generateFileFullPath(fileName, innerDir, prefixName)));
-      writer.on('error', reject);
+      writer.on('finish', () => {
+        writer.close();
+        resolve(fullPath);
+      });
+      writer.on('error', err => {
+        unlink(fileName, () => {});
+        reject(err);
+      });
   });
   }
 
