@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto';
-import { constants, promises } from 'fs';
+import { constants, createWriteStream, promises } from 'fs';
 
 export class FileService {
   protected filesRootDir: string;
@@ -36,7 +36,19 @@ export class FileService {
   }
 
   async saveImage(base64: string, prefixName?: string): Promise<string> {
-    return base64.startsWith(this.savedFilesPrefix) ? base64 : this.save(base64, 'images/', prefixName);
+    return base64.startsWith(this.savedFilesPrefix) ? base64 : this.saveFromBase64(base64, 'images/', prefixName);
+  }
+
+  async saveImageFromStream(stream: any, ext: string, prefixName?: string): Promise<string> {
+    const innerDir = 'images/';
+    this.prepareDirectoryStructure(innerDir, prefixName);
+    const fileName = this.generateFileName(ext, prefixName);
+    const writer = createWriteStream(fileName);
+    stream.pipe(writer);
+    return new Promise((resolve, reject) => {
+      writer.on('finish', () => resolve(this.generateFileFullPath(fileName, innerDir, prefixName)));
+      writer.on('error', reject);
+  });
   }
 
   protected generateFileName = (extension: string, prefix?: string): string => {
@@ -44,12 +56,26 @@ export class FileService {
     return `${first}_${new Date().getTime()}.${extension}`;
   }
 
-  protected async save(base64: string, innerDir: string, prefixName?: string): Promise<string> {
-    /*path of the folder where your project is saved. (In my case i got it from config file, root path of project).*/
+  protected generateFileFullPath(fileName: string, innerDir: string, prefixName: string): string {
+    return `${this.savedFilesPrefix}${innerDir}${prefixName ? (prefixName + '/') : ''}${fileName}`;
+  }
+
+  protected async prepareDirectoryStructure(innerDir: string, prefixName?: string): Promise<string> {
+    // path of the folder where your project is saved. (In my case i got it from config file, root path of project)
     let uploadPath = `${this.filesRootDir}${innerDir}`;
     if (prefixName) {
         uploadPath += `${prefixName}/`;
     }
+    // prepare folders structure
+    if (!(await this.isExist(uploadPath))) {
+      await promises.mkdir(uploadPath, { recursive: true });
+    }
+    return uploadPath;
+  }
+
+  protected async saveFromBase64(base64: string, innerDir: string, prefixName?: string): Promise<string> {
+    const uploadPath = this.prepareDirectoryStructure(innerDir, prefixName);
+
     //Find extension of file
     const ext = base64.substring(base64.indexOf('/')+1, base64.indexOf(';base64'));
     const fileType = base64.substring('data:'.length, base64.indexOf('/'));
@@ -59,11 +85,7 @@ export class FileService {
     const base64Data = base64.replace(regex, '');
     const filename = this.generateFileName(ext, prefixName);
 
-    if (!(await this.isExist(uploadPath))) {
-      await promises.mkdir(uploadPath, { recursive: true });
-    }
-
     await promises.writeFile(uploadPath + filename, base64Data, 'base64');
-    return `${this.savedFilesPrefix}${innerDir}${prefixName ? (prefixName + '/') : ''}${filename}`;
+    return this.generateFileFullPath(filename, innerDir, prefixName);
   }
 }
