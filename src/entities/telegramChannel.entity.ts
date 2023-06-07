@@ -29,6 +29,7 @@ export type TelegramChatParams = {
 };
 
 export type TelegramChatBotConectParams = {
+  botAddInitiatorTgId?: string;
   botAdded: boolean;
   botToken?: string;
   botCanManageChat?: boolean;
@@ -69,6 +70,9 @@ export class TelegramChatEntity extends BaseEntity {
   @Column('text', { nullable: true })
   username: string;
 
+  @Column('bigint', { nullable: true })
+  botAddInitiatorTgId?: string;
+
   @Column('boolean', { default: false })
   botAdded: boolean;
   
@@ -107,6 +111,9 @@ export class TelegramChatEntity extends BaseEntity {
   }
 
   botConnect(params: TelegramChatBotConectParams) {
+    if (params.botAddInitiatorTgId) {
+      this.botAddInitiatorTgId = params.botAddInitiatorTgId;
+    }
     this.botAdded = params.botAdded;
     this.botToken = params.botToken;
     this.botCanManageChat = params.botCanManageChat || false;
