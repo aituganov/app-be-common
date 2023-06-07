@@ -90,16 +90,17 @@ export class TelegramChatEntity extends BaseEntity {
   @Column('int', { nullable: true })
   connectorId: number; // App user which connect chat through bot
 
-  constructor(params: TelegramChatParams) {
-    super();
-    this.chatId = params.chatId;
-    this.ownerId = params.ownerId;
-    this.adminIds = params.adminIds;
-    this.type = params.type;
-    this.photo = params.photo;
-    this.title = params.title;
-    this.description = params.description;
-    this.username = params.username;
+  static initialize(params: TelegramChatParams): TelegramChatEntity {
+    const chat = new TelegramChatEntity();
+    chat.chatId = params.chatId;
+    chat.ownerId = params.ownerId;
+    chat.adminIds = params.adminIds;
+    chat.type = params.type;
+    chat.photo = params.photo;
+    chat.title = params.title;
+    chat.description = params.description;
+    chat.username = params.username;
+    return chat;
   }
 
   botConnect(params: TelegramChatBotConectParams) {
