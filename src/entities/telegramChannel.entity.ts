@@ -99,15 +99,19 @@ export class TelegramChatEntity extends BaseEntity {
 
   static initialize(params: TelegramChatParams): TelegramChatEntity {
     const chat = new TelegramChatEntity();
-    chat.chatId = params.chatId;
-    chat.ownerId = params.ownerId;
-    chat.adminIds = params.adminIds;
-    chat.type = params.type;
-    chat.photo = params.photo;
-    chat.title = params.title;
-    chat.description = params.description;
-    chat.username = params.username;
+    chat.updateParams(params);
     return chat;
+  }
+
+  updateParams(params: TelegramChatParams) {
+    this.chatId = params.chatId;
+    this.ownerId = params.ownerId;
+    this.adminIds = params.adminIds;
+    this.type = params.type;
+    this.photo = params.photo;
+    this.title = params.title;
+    this.description = params.description;
+    this.username = params.username;
   }
 
   botConnect(params: TelegramChatBotConectParams) {
