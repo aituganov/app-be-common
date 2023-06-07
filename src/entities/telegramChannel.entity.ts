@@ -69,7 +69,7 @@ export class TelegramChatEntity extends BaseEntity {
   @Column('boolean', { default: false })
   botAdded: boolean;
   
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   botToken: string;
 
   @Column('boolean', { default: false })
@@ -86,6 +86,9 @@ export class TelegramChatEntity extends BaseEntity {
 
   @Column('boolean', { default: false })
   botCanPostMessages: boolean;
+
+  @Column('int', { nullable: true })
+  connectorId: number; // App user which connect chat through bot
 
   constructor(params: TelegramChatParams) {
     super();
@@ -107,5 +110,9 @@ export class TelegramChatEntity extends BaseEntity {
     this.botCanInviteUsers = params.botCanInviteUsers || false;
     this.botCanRestrictMembers = params.botCanRestrictMembers || false;
     this.botCanPostMessages = params.botCanPostMessages || false;
+  }
+
+  setConnector(connectorId: number) {
+    this.connectorId = connectorId;
   }
 }
