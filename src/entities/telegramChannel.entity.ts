@@ -15,7 +15,7 @@ export enum TelegramChatLimits {
   Username = 32
 };
 
-export const EntityName = 'telegram_chat';
+export const TelegramChatEntityName = 'telegram_chat';
 
 export class TelegramChatEntity extends BaseEntity {
   @Column('bigint')
