@@ -1,5 +1,6 @@
 import { MaxLength } from 'class-validator';
-import { BaseEntity, Column, Entity } from 'typeorm';
+import { Column } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
 export enum TelegramChatTypes {
   Private = 'private',
@@ -14,7 +15,6 @@ export enum TelegramChatLimits {
   Username = 32
 };
 
-@Entity({ name: 'telegram_chat_entity' })
 export class TelegramChatEntity extends BaseEntity {
   @Column('bigint')
   chatId: string;
