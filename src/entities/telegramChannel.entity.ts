@@ -48,7 +48,10 @@ export class TelegramChatEntity extends BaseEntity {
   @Column('bigint', { array: true, default: [] })
   adminIds:string[];
 
-  @Column('enum', { enum: TelegramChatTypes })
+  @Column('enum', {
+    enum: Object.values(TelegramChatTypes),
+    enumName: 'telegram_chat_types'
+  })
   type: TelegramChatTypes;
 
   @Column('text', { nullable: true })
