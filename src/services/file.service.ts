@@ -49,7 +49,7 @@ export class FileService {
     return new Promise((resolve, reject) => {
       writer.on('finish', () => {
         writer.close();
-        resolve(fullPath);
+        resolve(this.generateFileRelativePath(fileName, innerDir, prefixName));
       });
       writer.on('error', err => {
         unlink(fileName, () => {});
@@ -63,7 +63,7 @@ export class FileService {
     return `${first}_${new Date().getTime()}.${extension}`;
   }
 
-  protected generateFileFullPath(fileName: string, innerDir: string, prefixName: string): string {
+  protected generateFileRelativePath(fileName: string, innerDir: string, prefixName: string): string {
     return `${this.savedFilesPrefix}${innerDir}${prefixName ? (prefixName + '/') : ''}${fileName}`;
   }
 
@@ -90,9 +90,9 @@ export class FileService {
     const regex = new RegExp(`^data:${fileType}\/${ext};base64,`, 'gi');
     //Extract base64 data.
     const base64Data = base64.replace(regex, '');
-    const filename = this.generateFileName(ext, prefixName);
+    const fileName = this.generateFileName(ext, prefixName);
 
-    await promises.writeFile(uploadPath + filename, base64Data, 'base64');
-    return this.generateFileFullPath(filename, innerDir, prefixName);
+    await promises.writeFile(uploadPath + fileName, base64Data, 'base64');
+    return this.generateFileRelativePath(fileName, innerDir, prefixName);
   }
 }
