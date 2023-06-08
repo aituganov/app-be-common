@@ -1,5 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
-import { BaseErrorMessage, BaseException } from '..';
+import { BaseException } from './base.exception';
+import { BaseErrorMessage } from '../responses';
 
 export class NotFoundException extends BaseException {
   constructor(message: BaseErrorMessage = {
