@@ -1,4 +1,4 @@
-import { BaseResponse } from './base.response';
+import { BaseError, BaseResponse } from './base.response';
 
 export type ListResponsParams<T> = {
   items: T[];
@@ -9,7 +9,7 @@ export type ListResponsParams<T> = {
 export class ListResponse<T> extends BaseResponse<ListResponsParams<T>> {
   data: ListResponsParams<T>;
 
-  constructor(data?: ListResponsParams<T>, error?: any) {
+  constructor(data?: ListResponsParams<T>, error?: BaseError) {
     super({
       data,
       error
