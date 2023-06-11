@@ -43,8 +43,8 @@ export class AppConfigurationWithDB {
     return '/api/v1/';
   }
 
-  getAppHost(): string | null {
-    return this.getValue('APP_HOST', false);
+  getAppHost(): string {
+    return this.getValue('APP_HOST', false) || '';
   }
   
   getAppPort(): string {
