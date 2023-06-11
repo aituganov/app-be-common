@@ -42,9 +42,8 @@ export class AppConfigurationWithDB {
   getApiPrefix(): string {
     return '/api/v1/';
   }
-
   getAppHost(): string {
-    return this.getValue('APP_HOST', false) || '';
+    return this.getValue('APP_HOST', false) || '127.0.0.1';
   }
   
   getAppPort(): string {
