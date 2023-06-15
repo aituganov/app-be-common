@@ -28,7 +28,7 @@ export class RepoReadService<T extends BaseEntity> {
   }
 
   protected async readEntity(id: number, where?: any, map: SimpleMap = {}): Promise<T> {
-    this.beforeDBRead(id, map);
+    await this.beforeDBRead(id, map);
     const preparedWhere = where || {
       id
     };
