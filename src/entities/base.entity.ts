@@ -3,6 +3,14 @@ import { Exclude } from 'class-transformer';
 import { IBaseEntityDTOCreate } from '../interfaces/base-entity-dto-create.interface';
 import { IBaseEntityDTOUpdate } from '../interfaces/base-entity-dto-update.interface';
 
+class Factory {
+  create<T>(type: (new () => T)): T {
+      return new type();
+  }
+}
+
+const factory = new Factory();
+
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -21,8 +29,8 @@ export abstract class BaseEntity {
 
   protected abstract updateConcreteFields(dto: IBaseEntityDTOCreate | IBaseEntityDTOUpdate);
 
-  static createFromDTO<T extends BaseEntity>(dto: IBaseEntityDTOCreate): T {
-    const e = this.constructor();
+  static createFromDTO<T extends BaseEntity>(claz: any, dto: IBaseEntityDTOCreate): T {
+    const e = factory.create<T>(claz);
     e.updateFromDTO(dto);
     return e;
   }
