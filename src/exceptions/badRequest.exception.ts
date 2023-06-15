@@ -1,9 +1,9 @@
 import { HttpStatus } from '@nestjs/common';
 import { BaseException } from './base.exception';
-import { BaseErrorMessage } from '../responses';
+import { MultilanguageMessage } from '../responses';
 
 export class BadRequestException extends BaseException {
-  constructor(message: BaseErrorMessage = {
+  constructor(message: MultilanguageMessage = {
     en: 'Bad request',
     ru: 'Некорректный запрос'
   }) {

@@ -1,6 +1,7 @@
 import { MaxLength } from 'class-validator';
 import { Column } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { TelegramChatDTO } from '@/dto/telegram-chat.dto';
 
 export enum TelegramChatTypes {
   Private = 'private',
@@ -16,17 +17,6 @@ export enum TelegramChatLimits {
 };
 
 export const TelegramChatEntityName = 'telegram_chat';
-
-export type TelegramChatParams = {
-  chatId: string;
-  ownerId: string;
-  adminIds: string[];
-  type: TelegramChatTypes;
-  photo?: string;
-  title: string;
-  description?: string;
-  username?: string;
-};
 
 export type TelegramChatBotConectParams = {
   botAddInitiatorTgId?: string;
@@ -97,16 +87,16 @@ export class TelegramChatEntity extends BaseEntity {
   @Column('int', { nullable: true })
   connectorId: number; // App user which connect chat through bot
 
-  updateParams(params: TelegramChatParams) {
-    this.beforeUpdate(params);
-    this.chatId = params.chatId;
-    this.ownerId = params.ownerId;
-    this.adminIds = params.adminIds;
-    this.type = params.type;
-    this.photo = params.photo;
-    this.title = params.title;
-    this.description = params.description;
-    this.username = params.username;
+  protected updateConcreteFields(dto: TelegramChatDTO) {
+    this.beforeUpdate(dto);
+    this.chatId = dto.chatId;
+    this.ownerId = dto.ownerId;
+    this.adminIds = dto.adminIds;
+    this.type = dto.type;
+    this.photo = dto.photo;
+    this.title = dto.title;
+    this.description = dto.description;
+    this.username = dto.username;
   }
 
   botConnect(params: TelegramChatBotConectParams) {
@@ -126,5 +116,5 @@ export class TelegramChatEntity extends BaseEntity {
     this.connectorId = connectorId;
   }
 
-  protected beforeUpdate(params: TelegramChatParams) {}
+  protected beforeUpdate(params: TelegramChatDTO) {}
 }

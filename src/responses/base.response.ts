@@ -1,10 +1,10 @@
-export type BaseErrorMessage = {
+export type MultilanguageMessage = {
   en: string;
   ru: string;
 }
 
 export type BaseError = {
-  message: BaseErrorMessage;
+  message: MultilanguageMessage;
   origin?: string;
   data?: any;
 };
