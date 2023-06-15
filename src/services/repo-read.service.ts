@@ -21,14 +21,14 @@ export class RepoReadService<T extends BaseEntity> {
     this.repo = params.repo;
   }
 
-  protected async beforeRead(id: number, map?: SimpleMap): Promise<any> {}
+  protected async beforeDBRead(id: number, map: SimpleMap): Promise<any> {}
 
-  protected async checkAccess(e: T, map?: SimpleMap): Promise<Boolean> {
+  protected async checkAccess(e: T, map: SimpleMap): Promise<Boolean> {
     return true;
   }
 
-  protected async readEntity(id: number, where?: any, map?: SimpleMap): Promise<T> {
-    this.beforeRead(id, map);
+  protected async readEntity(id: number, where?: any, map: SimpleMap = {}): Promise<T> {
+    this.beforeDBRead(id, map);
     const preparedWhere = where || {
       id
     };
