@@ -30,7 +30,7 @@ export class RepoReadService<T extends BaseEntity> {
     return true;
   }
 
-  protected async readEntity(id: number, map: SimpleMap = {}, where?: FindOptionsWhere<T>): Promise<T> {
+  async readEntity(id: number, map: SimpleMap = {}, where?: FindOptionsWhere<T>): Promise<T> {
     await this.beforeDBRead(id, map);
     const preparedWhere = where || {
       id
