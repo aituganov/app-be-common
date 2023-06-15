@@ -1,7 +1,7 @@
-import { TelegramChatTypes } from '@/entities';
-import { IBaseEntityDTOCreate } from '@/interfaces/base-entity-dto-create.interface';
-import { validationArrayNotEmptyMessage, validationStringMessage } from '@/validations';
 import { ArrayNotEmpty, IsEnum, IsOptional, IsString } from 'class-validator';
+import { TelegramChatTypes } from '../entities';
+import { IBaseEntityDTOCreate } from '../interfaces/base-entity-dto-create.interface';
+import { validationArrayNotEmptyMessage, validationStringMessage } from '../validations';
 
 export class TelegramChatDTO implements IBaseEntityDTOCreate {
   @IsString(validationStringMessage)

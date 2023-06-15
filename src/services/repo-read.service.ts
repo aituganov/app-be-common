@@ -1,7 +1,7 @@
-import { NotFoundException } from '@/exceptions';
-import { MultilanguageMessage, BaseResponse } from '@/responses';
 import { FindOptionsRelations, Repository } from 'typeorm';
 import { type BaseEntity } from '../entities/base.entity';
+import { NotFoundException } from '../exceptions';
+import { MultilanguageMessage, BaseResponse } from '../responses';
 
 export class RepoReadService<T extends BaseEntity> {
   protected entityName: MultilanguageMessage;

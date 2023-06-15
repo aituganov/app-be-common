@@ -1,6 +1,6 @@
-import { BaseEntity } from '@/entities';
+import { BaseEntity } from '../entities';
 import { RepoReadService } from './repo-read.service';
-import { IBaseEntityDTOCreate } from '@/interfaces/base-entity-dto-create.interface';
+import { IBaseEntityDTOCreate } from '../interfaces/base-entity-dto-create.interface';
 import { IBaseEntityDTOUpdate } from '../interfaces/base-entity-dto-update.interface';
 
 export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {

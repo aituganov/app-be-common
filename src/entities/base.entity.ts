@@ -1,7 +1,7 @@
 import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { IBaseEntityDTOCreate } from '@/interfaces/base-entity-dto-create.interface';
-import { IBaseEntityDTOUpdate } from '@/interfaces/base-entity-dto-update.interface';
+import { IBaseEntityDTOCreate } from '../interfaces/base-entity-dto-create.interface';
+import { IBaseEntityDTOUpdate } from '../interfaces/base-entity-dto-update.interface';
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn()
