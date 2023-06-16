@@ -87,8 +87,8 @@ export class TelegramChatEntity extends BaseEntity {
   @Column('int', { nullable: true })
   connectorId: number; // App user which connect chat through bot
 
-  protected updateConcreteFields(dto: TelegramChatDTO) {
-    this.beforeUpdate(dto);
+  protected async updateConcreteFields(dto: TelegramChatDTO) {
+    await this.beforeUpdate(dto);
     this.chatId = dto.chatId;
     this.ownerId = dto.ownerId;
     this.adminIds = dto.adminIds;
@@ -116,5 +116,5 @@ export class TelegramChatEntity extends BaseEntity {
     this.connectorId = connectorId;
   }
 
-  protected beforeUpdate(params: TelegramChatDTO) {}
+  protected async beforeUpdate(params: TelegramChatDTO) {}
 }

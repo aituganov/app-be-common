@@ -35,11 +35,11 @@ export abstract class BaseEntity {
     return e;
   }
 
-  updateFromDTO(dto: IBaseEntityDTOCreate | IBaseEntityDTOUpdate) {
+  async updateFromDTO(dto: IBaseEntityDTOCreate | IBaseEntityDTOUpdate) {
     if ((dto as IBaseEntityDTOUpdate).id) {
       this.id = (dto as IBaseEntityDTOUpdate).id;
     }
-    this.updateConcreteFields(dto);
+    await this.updateConcreteFields(dto);
   }
 
   delete(): void {
