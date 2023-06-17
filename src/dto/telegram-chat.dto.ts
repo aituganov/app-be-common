@@ -1,7 +1,7 @@
-import { ArrayNotEmpty, IsEnum, IsOptional, IsString } from 'class-validator';
+import { ArrayNotEmpty, IsEnum, IsInt, IsOptional, IsString, IsUrl, Max, ValidateNested } from 'class-validator';
 import { TelegramChatTypes } from '../entities';
 import { IBaseEntityDTOCreate } from '../interfaces/base-entity-dto-create.interface';
-import { validationArrayNotEmptyMessage, validationStringMessage } from '../validations';
+import { FieldsValidation, validationArrayNotEmptyMessage, validationLengthMaxMessage, validationNumberMessage, validationStringMessage, validationUrlMessage } from '../validations';
 
 export class TelegramChatDTO implements IBaseEntityDTOCreate {
   @IsString(validationStringMessage)
@@ -31,4 +31,33 @@ export class TelegramChatDTO implements IBaseEntityDTOCreate {
   @IsOptional()
   @IsString(validationStringMessage)
   username?: string;
+}
+
+export class ChatDTO {
+  @IsInt({ message: 'Chat id required in number format: positive for peoples, negative for chats' })
+  chatId: number;
+}
+
+export class ChatButtonDTO {
+  @IsString(validationStringMessage)
+  text: string;
+
+  @IsString(validationStringMessage)
+  @IsUrl({ }, validationUrlMessage)
+  url: string;
+}
+
+export class ChatMemberDTO extends ChatDTO {
+  @IsInt(validationNumberMessage )
+  userId: number;
+}
+
+export class NotificationDTO extends ChatDTO {
+  @IsString(validationStringMessage)
+  @Max(FieldsValidation.Length.Telegram.Message, validationLengthMaxMessage)
+  text: string;
+
+  @IsOptional()
+  @ValidateNested()
+  buttons?: ChatButtonDTO[];
 }

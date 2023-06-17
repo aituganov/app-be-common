@@ -1,3 +1,1 @@
-export type SimpleMap = {
-  [id: string]: any;
-}
+export * from './utils.type';

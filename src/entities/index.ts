@@ -1,2 +1,3 @@
 export * from './base.entity';
-export * from './telegramChannel.entity';
+export * from './telegram-channel.entity';
+export * from './telegram-message.entity';
