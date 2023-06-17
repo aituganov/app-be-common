@@ -6,7 +6,9 @@ export enum TelegramMessageStatuses {
   Progress = 'progress'
 }
 
-export class TelegramMessage extends BaseEntity {
+export const TelegramMessageEntityName = 'telegram_message';
+
+export class TelegramMessageEntity extends BaseEntity {
   @Column('bigint')
   chatId: string;
 
