@@ -7,7 +7,7 @@ import { FieldsValidation } from '../../validations';
 export const PaymentReceiptDataEntityName = 'payment_receipt_data';
 
 export class PaymentReceiptDataEntity extends BaseEntity {
-  @Column()
+  @Column('int')
   ownerId: number;
 
   @MaxLength(FieldsValidation.Length.Email)
