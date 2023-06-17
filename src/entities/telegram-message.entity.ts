@@ -29,19 +29,25 @@ export class TelegramMessageEntity extends BaseEntity {
   })
   status: TelegramMessageStatuses;
 
+  @Column('text', { nullable: true })
+  text: string;
+
   @Column('jsonb', { nullable: true })
-  sendConfiguration: any;
+  buttons: any;
 
   updateStatus(newStatus: TelegramMessageStatuses) {
     this.status = newStatus;
+    if (this.status === TelegramMessageStatuses.Success) {
+      // Clear sended additional data to keep place in DB
+      this.text = null;
+    }
   }
 
   protected updateConcreteFields(dto: TelegramMessageDTO) {
     this.chatId = dto.chatId;
     this.fromBotId = dto.fromBotId;
     this.status = dto.status;
-    this.sendConfiguration = { ...dto };
-    delete this.sendConfiguration.fromBotId;
-    delete this.sendConfiguration.status;
+    this.text = dto.text;
+    this.buttons = dto.buttons;
   }
 }
