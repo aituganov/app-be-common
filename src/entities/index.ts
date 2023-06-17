@@ -1,3 +1,4 @@
 export * from './base.entity';
-export * from './telegram-channel.entity';
-export * from './telegram-message.entity';
+export * from './payments/payment-receipt-data.entity';
+export * from './telegram/telegram-channel.entity';
+export * from './telegram/telegram-message.entity';

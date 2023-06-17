@@ -1,7 +1,7 @@
 import { MaxLength } from 'class-validator';
 import { Column } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { TelegramChatDTO } from '../dto/telegram-chat.dto';
+import { BaseEntity } from '../base.entity';
+import { TelegramChatDTO } from '../../dto/telegram-chat.dto';
 
 export enum TelegramChatTypes {
   Private = 'private',

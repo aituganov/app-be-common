@@ -1,7 +1,7 @@
 import { Column } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { TelegramMessageDTO } from '../dto';
-import { ColumnStringToNumTransformer } from '../transformers';
+import { BaseEntity } from '../base.entity';
+import { TelegramMessageDTO } from '../../dto';
+import { ColumnStringToNumTransformer } from '../../transformers';
 
 export enum TelegramMessageStatuses {
   Success = 'success',
