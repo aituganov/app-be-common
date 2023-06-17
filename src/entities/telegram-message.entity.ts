@@ -1,4 +1,7 @@
-import { BaseEntity, Column } from 'typeorm';
+import { Column } from 'typeorm';
+import { BaseEntity } from './base.entity';
+import { TelegramMessageDTO } from '../dto';
+import { ColumnStringToNumTransformer } from '../transformers';
 
 export enum TelegramMessageStatuses {
   Success = 'success',
@@ -7,10 +10,18 @@ export enum TelegramMessageStatuses {
 }
 
 export const TelegramMessageEntityName = 'telegram_message';
+const idTransforer = new ColumnStringToNumTransformer();
 
 export class TelegramMessageEntity extends BaseEntity {
-  @Column('bigint')
-  chatId: string;
+  @Column('bigint', {
+    transformer: idTransforer
+  })
+  chatId: number;
+
+  @Column('bigint', {
+    transformer: idTransforer
+  })
+  fromBotId: number;
 
   @Column('enum', {
     enum: Object.values(TelegramMessageStatuses),
@@ -18,6 +29,19 @@ export class TelegramMessageEntity extends BaseEntity {
   })
   status: TelegramMessageStatuses;
 
-  @Column('jsonb')
-  sendConfiguration: string;
+  @Column('jsonb', { nullable: true })
+  sendConfiguration: any;
+
+  updateStatus(newStatus: TelegramMessageStatuses) {
+    this.status = newStatus;
+  }
+
+  protected updateConcreteFields(dto: TelegramMessageDTO) {
+    this.chatId = dto.chatId;
+    this.fromBotId = dto.fromBotId;
+    this.status = dto.status;
+    this.sendConfiguration = { ...dto };
+    delete this.sendConfiguration.fromBotId;
+    delete this.sendConfiguration.status;
+  }
 }

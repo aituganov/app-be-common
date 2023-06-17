@@ -6,3 +6,12 @@ export class ColumnDecimalTransformer {
     return parseFloat(data);
   }
 }
+
+export class ColumnStringToNumTransformer {
+  to(data: number): string {
+    return data.toString();
+  }
+  from(data: string): number {
+    return +data;
+  }
+}
