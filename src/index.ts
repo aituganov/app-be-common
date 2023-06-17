@@ -3,6 +3,7 @@ export * from './decorators';
 export * from './dto';
 export * from './entities';
 export * from './exceptions';
+export * from './filters';
 export * from './interfaces';
 export * from './responses';
 export * from './services';
