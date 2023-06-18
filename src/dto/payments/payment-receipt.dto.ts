@@ -1,10 +1,14 @@
-import { IsEmail, IsNumber, IsString, MaxLength } from 'class-validator';
+import { IsBoolean, IsBooleanString, IsEmail, IsString, MaxLength } from 'class-validator';
 import { IBaseEntityDTOCreate } from '../../interfaces';
-import { FieldsValidation, validationNumberMessage, validationStringMessage } from '../../validations';
+import { FieldsValidation, validationBooleanMessage, validationStringMessage } from '../../validations';
+import { Transform } from 'class-transformer';
 
 export class PaymentReceiptDTO implements IBaseEntityDTOCreate {
-  @IsNumber({ }, validationNumberMessage)
-  ownerId: number;
+  @IsString(validationStringMessage)
+  ownerId: string;
+  
+  @IsString(validationStringMessage)
+  tariffId: string;
 
   @MaxLength(FieldsValidation.Length.Email)
   @IsEmail({ },validationStringMessage)
@@ -17,4 +21,8 @@ export class PaymentReceiptDTO implements IBaseEntityDTOCreate {
   @MaxLength(FieldsValidation.Length.Pnone.Number)
   @IsString(validationStringMessage)
   phoneNumber: string;
+
+  @IsBoolean(validationBooleanMessage)
+  @Transform(({ value} ) => ['true', true].indexOf(value) > -1)
+  agree: boolean;
 }
