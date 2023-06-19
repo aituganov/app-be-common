@@ -10,7 +10,7 @@ export const PaymentDataEntityName = 'payment_data';
 
 export class PaymentDataEntity extends BaseEntity {
   @Column('text')
-  id: string;
+  dataId: string;
 
   @Column('int')
   customerId: number;
@@ -103,7 +103,7 @@ export class PaymentDataEntity extends BaseEntity {
   isRecurrent: boolean;
 
   protected updateConcreteFields(dto: PaymentDataCreateDTO) {
-    this.id = dto.id;
+    this.dataId = dto.dataId;
     this.customerId = dto.customerId;
     this.customerAgreeWithTerms = dto.customerAgree;
     this.tariffId = dto.tariffId;

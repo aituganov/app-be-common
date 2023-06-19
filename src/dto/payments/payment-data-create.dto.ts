@@ -1,13 +1,13 @@
 import { Transform, Type } from 'class-transformer';
 import { IsBoolean, IsEmail, IsEnum, IsNumber, IsString, Length, Max, MaxLength, Min } from 'class-validator';
-import { IBaseEntityDTOUpdate } from '../../interfaces';
+import { IBaseEntityDTOCreate } from '../../interfaces';
 import { AvailableCurrencies } from '../../types/payment.type';
 import { FieldsValidation, validationBooleanMessage, validationNumberMessage, validationStringMessage, validationNumberMaxMessage, validationNumberMinMessage, validationLengthMessage } from '../../validations';
 
-export class PaymentDataCreateDTO implements IBaseEntityDTOUpdate {
+export class PaymentDataCreateDTO implements IBaseEntityDTOCreate {
   @IsString(validationStringMessage)
   @Length(FieldsValidation.Length.UUID_V4, FieldsValidation.Length.UUID_V4, validationLengthMessage)
-  id: string;
+  dataId: string;
 
   @IsNumber({ }, validationNumberMessage)
   @Type(() => Number)
