@@ -13,7 +13,7 @@ const factory = new Factory();
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number | string;
 
   @Exclude()
   @Column({ type: 'boolean', default: false })
