@@ -1,12 +1,12 @@
 import { Max, MaxLength, Min } from 'class-validator';
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { paymentColumnOpts } from '../../constants/payment.constant';
 import { PaymentDataCreateDTO } from '../../dto';
 import { AvailableCurrencies, PaymentReceiptStatuses, PaymentStatuses } from '../../types';
 import { FieldsValidation } from '../../validations';
 
-export const PaymentReceiptDataEntityName = 'payment_receipt_data';
+export const PaymentDataEntityName = 'payment_data';
 
 export class PaymentDataEntity extends BaseEntity {
   @Column('text')
