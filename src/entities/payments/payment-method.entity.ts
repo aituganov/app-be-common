@@ -46,7 +46,7 @@ export class PaymentMethodEntity extends BaseEntity {
 
   // Yoo money
   @Column('text', { nullable: true })
-  account_number: string;
+  accountNumber: string;
 
   protected updateConcreteFields(dto: PaymentMethodDTO) {
     this.methodId = dto.methodId;
@@ -60,6 +60,6 @@ export class PaymentMethodEntity extends BaseEntity {
     this.cardExpMonth = dto.cardExpMonth;
     this.cardType = dto.cardType;
     this.cardIssuerCountry = dto.cardIssuerCountry;
-    this.account_number = dto.account_number;
+    this.accountNumber = dto.accountNumber;
   }
 }

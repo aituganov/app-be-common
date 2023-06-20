@@ -56,5 +56,5 @@ export class PaymentMethodDTO implements IBaseEntityDTOCreate {
   // Yoo money
   @IsOptional()
   @IsString(validationStringMessage)
-  account_number: string;
+  accountNumber: string;
 }
