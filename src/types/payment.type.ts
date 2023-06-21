@@ -23,8 +23,9 @@ export enum PaymentReceiptStatuses {
 };
 
 export enum PaymentStatuses {
-  Succeeded = 'succeeded',
-  Refunded = 'refunded',
   Canceled = 'canceled',
+  Pending = 'pending',
+  Refunded = 'refunded',
+  Succeeded = 'succeeded',
   Waiting = 'waiting'
 };
