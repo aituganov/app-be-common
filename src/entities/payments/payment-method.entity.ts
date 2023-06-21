@@ -1,11 +1,16 @@
-import { Column } from 'typeorm';
+import { Column, JoinColumn, OneToOne } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { PaymentMethodTypes } from '../../types';
 import { PaymentMethodDTO } from '../../dto/payments/payment-method.dto';
+import { PaymentEntity } from './payment.entity';
 
 export const PaymentMethodEntityName = 'payment_method';
 
 export class PaymentMethodEntity extends BaseEntity {
+  @OneToOne(() => PaymentEntity, (payment) => payment.paymentMethod)
+  @JoinColumn()
+  payment: PaymentEntity;
+
   @Column('text')
   methodId: string;
 

@@ -1,5 +1,5 @@
 import { Max, MaxLength, Min } from 'class-validator';
-import { Column } from 'typeorm';
+import { Column, OneToOne } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { paymentColumnOpts } from '../../constants/payment.constant';
 import { PaymentCreateDTO } from '../../dto';
@@ -10,6 +10,9 @@ import { PaymentMethodEntity } from './payment-method.entity';
 export const PaymentDataEntityName = 'payment_data';
 
 export abstract class PaymentEntity extends BaseEntity {
+  @OneToOne(() => PaymentMethodEntity, pm => pm.payment)
+  paymentMethod: PaymentMethodEntity
+
   @Column('text')
   dataId: string;
 
