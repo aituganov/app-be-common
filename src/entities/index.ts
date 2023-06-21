@@ -1,5 +1,5 @@
 export * from './base.entity';
-export * from './payments/payment-data.entity';
+export * from './payments/payment.entity';
 export * from './payments/payment-method.entity';
 export * from './tariffs/tariff.entity';
 export * from './telegram/telegram-channel.entity';

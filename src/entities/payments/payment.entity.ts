@@ -2,13 +2,14 @@ import { Max, MaxLength, Min } from 'class-validator';
 import { Column } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { paymentColumnOpts } from '../../constants/payment.constant';
-import { PaymentDataCreateDTO } from '../../dto';
+import { PaymentCreateDTO } from '../../dto';
 import { AvailableCurrencies, PaymentReceiptStatuses, PaymentStatuses } from '../../types';
 import { FieldsValidation } from '../../validations';
+import { PaymentMethodEntity } from './payment-method.entity';
 
 export const PaymentDataEntityName = 'payment_data';
 
-export class PaymentDataEntity extends BaseEntity {
+export abstract class PaymentEntity extends BaseEntity {
   @Column('text')
   dataId: string;
 
@@ -36,7 +37,7 @@ export class PaymentDataEntity extends BaseEntity {
   @Column('enum', {
     enum: Object.values(PaymentStatuses),
     enumName: 'payment_statuses',
-    default: PaymentStatuses.Wait
+    default: PaymentStatuses.Waiting
   })
   status: PaymentStatuses;
 
@@ -58,6 +59,9 @@ export class PaymentDataEntity extends BaseEntity {
 
   @Column('text')
   description: string;
+
+  @Column('timestamptz', { nullable: true })
+  expiresAt: Date;
 
   @Column(paymentColumnOpts)
   @Min(FieldsValidation.Price.Min)
@@ -102,7 +106,7 @@ export class PaymentDataEntity extends BaseEntity {
   @Column('boolean', { default: false })
   isRecurrent: boolean;
 
-  protected updateConcreteFields(dto: PaymentDataCreateDTO) {
+  protected updateConcreteFields(dto: PaymentCreateDTO) {
     this.dataId = dto.dataId;
     this.customerId = dto.customerId;
     this.customerAgreeWithTerms = dto.customerAgree;
@@ -115,4 +119,10 @@ export class PaymentDataEntity extends BaseEntity {
     this.description = dto.description;
     this.isRecurrent = dto.isRecurrent;
   }
+
+  abstract parseCurrencyFromProvider(currency: string): AvailableCurrencies
+  abstract parseReceiptStatusFromProvider(receiptStatus: string): PaymentReceiptStatuses;
+  abstract parseStatusFromProvider(status: string): PaymentStatuses;
+  abstract setCurrencyToProvider(currency: AvailableCurrencies): string;
+  abstract updateFromProviderData(data: any, paymentMethods: PaymentMethodEntity): void;
 }

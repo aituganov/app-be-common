@@ -2,7 +2,7 @@ import { Transform, Type } from 'class-transformer';
 import { IsBoolean, IsEmail, IsNumber, IsString, IsUrl, MaxLength } from 'class-validator';
 import { FieldsValidation, validationBooleanMessage, validationBooleanTransform, validationEmailMessage, validationNumberMessage, validationStringMessage, validationUrlMessage } from '../../validations';
 
-export class PaymentDataInitDTO {
+export class PaymentInitDTO {
   @IsNumber({ }, validationNumberMessage)
   @Type(() => Number)
   customerId: number;

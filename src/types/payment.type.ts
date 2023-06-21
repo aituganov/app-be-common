@@ -17,14 +17,14 @@ export enum PaymentMethodTypes {
 };
 
 export enum PaymentReceiptStatuses {
-  Canceled = 'canceled',
+  Cancel = 'canceled',
   Pending = 'pending',
   Succeeded = 'succeeded'
 };
 
 export enum PaymentStatuses {
-  Success = 'success',
-  Refund = 'refund',
-  Reject = 'reject',
-  Wait = 'wait'
+  Succeeded = 'succeeded',
+  Refunded = 'refunded',
+  Canceled = 'canceled',
+  Waiting = 'waiting'
 };
