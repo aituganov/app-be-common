@@ -1,5 +1,5 @@
 import { Max, MaxLength, Min } from 'class-validator';
-import { Column, OneToOne } from 'typeorm';
+import { Column } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { paymentColumnOpts } from '../../constants/payment.constant';
 import { PaymentCreateDTO } from '../../dto';
@@ -7,15 +7,9 @@ import { AvailableCurrencies, PaymentReceiptStatuses, PaymentStatuses } from '..
 import { FieldsValidation } from '../../validations';
 import { PaymentMethodEntity } from './payment-method.entity';
 
-export const PaymentDataEntityName = 'payment_data';
+export const PaymentEntityName = 'payment';
 
 export abstract class PaymentEntity extends BaseEntity {
-  @OneToOne(() => PaymentMethodEntity, pm => pm.payment)
-  paymentMethod: PaymentMethodEntity
-
-  @Column('text')
-  dataId: string;
-
   @Column('int')
   customerId: number;
 
@@ -110,7 +104,6 @@ export abstract class PaymentEntity extends BaseEntity {
   isRecurrent: boolean;
 
   protected updateConcreteFields(dto: PaymentCreateDTO) {
-    this.dataId = dto.dataId;
     this.customerId = dto.customerId;
     this.customerAgreeWithTerms = dto.customerAgree;
     this.tariffId = dto.tariffId;

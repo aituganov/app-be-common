@@ -1,7 +1,7 @@
 import { BaseEntity } from '../entities';
 import { RepoReadService } from './repo-read.service';
-import { IBaseEntityDTOCreate } from '../interfaces/base-entity-dto-create.interface';
-import { IBaseEntityDTOUpdate } from '../interfaces/base-entity-dto-update.interface';
+import { IBaseEntityCreateDTO } from '../interfaces/base-entity-create-dto.interface';
+import { IBaseEntityUpdateDTO } from '../interfaces/base-entity-update-dto.interface';
 import { type SimpleMap } from '../types';
 import { BaseResponse } from '../responses';
 
@@ -16,26 +16,26 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
     return await this.repo.save(e);
   }
   
-  async entityCreate(dto: IBaseEntityDTOCreate, map: SimpleMap = {}): Promise<T> {
+  async entityCreate(dto: IBaseEntityCreateDTO, map: SimpleMap = {}): Promise<T> {
     const e = BaseEntity.createFromDTO(this.entityClass, dto) as T;
     await this.beforeDBCreate(e, map);
     return await this.saveToDB(e);
   }
 
-  async create(dto: IBaseEntityDTOCreate, map: SimpleMap = {}): Promise<BaseResponse<T>> {
+  async create(dto: IBaseEntityCreateDTO, map: SimpleMap = {}): Promise<BaseResponse<T>> {
     const data = await this.entityCreate(dto, map);
     return new BaseResponse({
       data
     });
   }
 
-  async entityUpdate(e: T, dto: IBaseEntityDTOUpdate, map: SimpleMap = {}): Promise<T> {
+  async entityUpdate(e: T, dto: IBaseEntityUpdateDTO, map: SimpleMap = {}): Promise<T> {
     e.updateFromDTO(dto);
     await this.beforeDBUpdate(e, map);
     return await this.saveToDB(e);
   }
 
-  async update(dto: IBaseEntityDTOUpdate, map: SimpleMap = {}, where?: any): Promise<BaseResponse<T>> {
+  async update(dto: IBaseEntityUpdateDTO, map: SimpleMap = {}, where?: any): Promise<BaseResponse<T>> {
     const e = await this.readEntity(dto.id, map, where);
     const data = await this.entityUpdate(e, dto, map);
     return new BaseResponse({

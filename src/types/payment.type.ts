@@ -17,7 +17,7 @@ export enum PaymentMethodTypes {
 };
 
 export enum PaymentReceiptStatuses {
-  Cancel = 'canceled',
+  Canceled = 'canceled',
   Pending = 'pending',
   Succeeded = 'succeeded'
 };

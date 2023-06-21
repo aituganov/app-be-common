@@ -1,13 +1,13 @@
 import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString, Length, Max, Min } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { IBaseEntityDTOCreate } from '../../interfaces';
+import { IBaseEntityCreateDTO, IBaseEntityUpdateDTO } from '../../interfaces';
 import { PaymentMethodTypes } from '../../types/payment.type';
 import { FieldsValidation, validationBooleanTransform, validationBooleanMessage, validationLengthMessage, validationStringMessage, validationNumberMessage, validationNumberMinMessage, validationNumberMaxMessage } from '../../validations';
 
-export class PaymentMethodDTO implements IBaseEntityDTOCreate {
+export class PaymentMethodDTO implements IBaseEntityCreateDTO, IBaseEntityUpdateDTO {
   @IsString(validationStringMessage)
   @Length(FieldsValidation.Length.UUID_V4, FieldsValidation.Length.UUID_V4, validationLengthMessage)
-  methodId: string;
+  id: string;
 
   @IsEnum(PaymentMethodTypes)
   type: PaymentMethodTypes;

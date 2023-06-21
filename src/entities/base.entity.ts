@@ -1,7 +1,7 @@
 import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { IBaseEntityDTOCreate } from '../interfaces/base-entity-dto-create.interface';
-import { IBaseEntityDTOUpdate } from '../interfaces/base-entity-dto-update.interface';
+import { IBaseEntityCreateDTO } from '../interfaces/base-entity-create-dto.interface';
+import { IBaseEntityUpdateDTO } from '../interfaces/base-entity-update-dto.interface';
 
 class Factory {
   create<T>(type: (new () => T)): T {
@@ -27,18 +27,15 @@ export abstract class BaseEntity {
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   tsUpdate: Date;
 
-  protected abstract updateConcreteFields(dto: IBaseEntityDTOCreate | IBaseEntityDTOUpdate);
+  protected abstract updateConcreteFields(dto: IBaseEntityCreateDTO | IBaseEntityUpdateDTO);
 
-  static createFromDTO<T extends BaseEntity>(claz: any, dto: IBaseEntityDTOCreate): T {
+  static createFromDTO<T extends BaseEntity>(claz: any, dto: IBaseEntityCreateDTO): T {
     const e = factory.create<T>(claz);
     e.updateFromDTO(dto);
     return e;
   }
 
-  async updateFromDTO(dto: IBaseEntityDTOCreate | IBaseEntityDTOUpdate) {
-    if ((dto as IBaseEntityDTOUpdate).id) {
-      this.id = (dto as IBaseEntityDTOUpdate).id;
-    }
+  async updateFromDTO(dto: IBaseEntityCreateDTO | IBaseEntityUpdateDTO) {
     await this.updateConcreteFields(dto);
   }
 

@@ -1,2 +1,2 @@
-export * from './base-entity-dto-create.interface';
-export * from './base-entity-dto-update.interface';
+export * from './base-entity-create-dto.interface';
+export * from './base-entity-update-dto.interface';

@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { FindOptionsOrder, FindOptionsRelations, FindOptionsWhere, Repository } from 'typeorm';
 import { BaseEntity } from '../entities/base.entity';
 import { BadRequestException, NotFoundException } from '../exceptions';

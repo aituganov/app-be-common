@@ -1,1 +1,1 @@
-export * from './appConfiguratonWithDB';
+export * from './app-configuraton-with-db';
