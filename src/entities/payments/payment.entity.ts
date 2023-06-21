@@ -34,7 +34,7 @@ export abstract class PaymentEntity extends BaseEntity {
   @Column('enum', {
     enum: Object.values(PaymentStatuses),
     enumName: 'payment_statuses',
-    default: PaymentStatuses.Waiting
+    default: PaymentStatuses.Pending
   })
   status: PaymentStatuses;
 
