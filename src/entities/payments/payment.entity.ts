@@ -10,6 +10,9 @@ import { PaymentMethodEntity } from './payment-method.entity';
 export const PaymentEntityName = 'payment';
 
 export abstract class PaymentEntity extends BaseEntity {
+  @Column('text', { nullable: true })
+  providerId: string;
+
   @Column('int')
   customerId: number;
 
@@ -18,6 +21,9 @@ export abstract class PaymentEntity extends BaseEntity {
 
   @Column('int')
   tariffId: number;
+
+  @Column('int', { nullable: true })
+  parentPaymentId: number;
 
   @MaxLength(FieldsValidation.Length.Email)
   @Column('text', { nullable: true })
@@ -72,6 +78,12 @@ export abstract class PaymentEntity extends BaseEntity {
   })
   incomeCurrency: string;
 
+  @Column('text', { nullable: true })
+  refundId: string;
+
+  @Column('timestamptz', { nullable: true })
+  refundedAt: Date;
+
   @Column(paymentColumnOpts)
   @Min(FieldsValidation.Price.Min)
   @Max(FieldsValidation.Price.Max)
@@ -100,10 +112,8 @@ export abstract class PaymentEntity extends BaseEntity {
   @Column('boolean', { nullable: true })
   refundable: boolean;
 
-  @Column('boolean', { default: false })
-  isRecurrent: boolean;
-
   protected updateConcreteFields(dto: PaymentCreateDTO) {
+    this.parentPaymentId = dto.parentPaymentId;
     this.customerId = dto.customerId;
     this.customerAgreeWithTerms = dto.customerAgree;
     this.tariffId = dto.tariffId;
@@ -113,12 +123,11 @@ export abstract class PaymentEntity extends BaseEntity {
     this.amount = dto.amount;
     this.currency = dto.currency;
     this.description = dto.description;
-    this.isRecurrent = dto.isRecurrent;
   }
 
-  abstract parseCurrencyFromProvider(currency: string): AvailableCurrencies
-  abstract parseReceiptStatusFromProvider(receiptStatus: string): PaymentReceiptStatuses;
-  abstract parseStatusFromProvider(status: string): PaymentStatuses;
-  abstract setCurrencyToProvider(currency: AvailableCurrencies): string;
+  abstract parseCurrencyFromProvider(currency: string): void;
+  abstract parseReceiptStatusFromProvider(receiptStatus: string): void;
+  abstract parseStatusFromProvider(status: string): void;
+  abstract prepareCurrencyForProvider(): string;
   abstract updateFromProviderData(data: any, paymentMethods: PaymentMethodEntity): void;
 }

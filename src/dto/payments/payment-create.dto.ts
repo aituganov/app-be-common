@@ -1,11 +1,16 @@
-import { Transform } from 'class-transformer';
-import { IsBoolean, IsEnum, IsNumber, Max, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsEnum, IsNumber, IsOptional, Max, Min } from 'class-validator';
 import { PaymentInitDTO } from './payment-init.dto';
 import { IBaseEntityCreateDTO } from '../../interfaces';
 import { AvailableCurrencies } from '../../types/payment.type';
-import { FieldsValidation, validationBooleanMessage, validationNumberMessage, validationNumberMaxMessage, validationNumberMinMessage } from '../../validations';
+import { FieldsValidation, validationNumberMessage, validationNumberMaxMessage, validationNumberMinMessage, validationStringMessage } from '../../validations';
 
-export class PaymentCreateDTO extends PaymentInitDTO implements IBaseEntityCreateDTO {
+export class PaymentCreateDTO extends PaymentInitDTO implements IBaseEntityCreateDTO {ng;
+  @IsOptional()
+  @IsNumber({ }, validationNumberMessage)
+  @Type(() => Number)
+  parentPaymentId: number;
+
   @IsNumber({ }, validationNumberMessage)
   @Min(FieldsValidation.Price.Min, validationNumberMinMessage)
   @Max(FieldsValidation.Price.Max, validationNumberMaxMessage)
@@ -13,8 +18,4 @@ export class PaymentCreateDTO extends PaymentInitDTO implements IBaseEntityCreat
 
   @IsEnum(AvailableCurrencies)
   currency: AvailableCurrencies;
-
-  @IsBoolean(validationBooleanMessage)
-  @Transform(({ value} ) => ['true', true].indexOf(value) > -1)
-  isRecurrent: boolean;
 }

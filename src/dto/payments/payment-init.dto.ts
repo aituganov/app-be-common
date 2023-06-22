@@ -7,13 +7,17 @@ export class PaymentInitDTO {
   @Type(() => Number)
   customerId: number;
 
-  @IsBoolean(validationBooleanMessage)
-  @Transform(validationBooleanTransform)
-  customerAgree: boolean;
-  
   @IsNumber({ }, validationNumberMessage)
   @Type(() => Number)
   tariffId: number;
+
+  @MaxLength(FieldsValidation.Length.Payment.Description)
+  @IsString(validationStringMessage)
+  description: string;
+
+  @IsBoolean(validationBooleanMessage)
+  @Transform(validationBooleanTransform)
+  customerAgree: boolean;
 
   @MaxLength(FieldsValidation.Length.Email)
   @IsEmail({ }, validationEmailMessage)
@@ -26,10 +30,6 @@ export class PaymentInitDTO {
   @MaxLength(FieldsValidation.Length.Pnone.Number)
   @IsString(validationStringMessage)
   phoneNumber: string;
-
-  @MaxLength(FieldsValidation.Length.Payment.Description)
-  @IsString(validationStringMessage)
-  description: string;
 
   @IsUrl({ require_tld: false }, validationUrlMessage)
   redirectUrlPrefix: string;

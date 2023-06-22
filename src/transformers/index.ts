@@ -15,3 +15,12 @@ export class ColumnStringToNumTransformer {
     return +data;
   }
 }
+
+export class DecimalMoneyTransformer {
+  to(data: number): string {
+    return data.toString();
+  }
+  from(data: string): number {
+    return +data;
+  }
+}

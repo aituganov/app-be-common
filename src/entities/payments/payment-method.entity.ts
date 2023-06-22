@@ -56,8 +56,8 @@ export class PaymentMethodEntity extends BaseEntity {
     this.login = dto.login;
     this.cardFirsPart = dto.cardFirsPart;
     this.cardLastPart = dto.cardLastPart;
-    this.cardExpYear = dto.cardExpYear.toString();
-    this.cardExpMonth = dto.cardExpMonth.toString();
+    this.cardExpYear = dto.cardExpYear ? dto.cardExpYear.toString() : null;
+    this.cardExpMonth = dto.cardExpMonth ? dto.cardExpMonth.toString() : null;
     this.cardType = dto.cardType;
     this.cardIssuerCountry = dto.cardIssuerCountry;
     this.accountNumber = dto.accountNumber;
