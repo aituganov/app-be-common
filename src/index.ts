@@ -5,6 +5,7 @@ export * from './dto';
 export * from './entities';
 export * from './exceptions';
 export * from './filters';
+export * from './guards';
 export * from './interfaces';
 export * from './responses';
 export * from './services';
