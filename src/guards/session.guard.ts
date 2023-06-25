@@ -7,7 +7,7 @@ import { Microservices } from '../constants/microservice.constant';
 export class SessionGuard implements CanActivate {
   constructor(
     @Inject(Microservices.Auth) private readonly client: ClientProxy,
-    private readonly logger: Logger
+    @Inject(Logger) private readonly logger: Logger
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
