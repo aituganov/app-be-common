@@ -35,7 +35,7 @@ export class RepoReadService<T extends BaseEntity> {
   }
 
   async readEntity(id: number | string, map: SimpleMap = {}, where?: FindOptionsWhere<T>): Promise<T> {
-    this.logger.debug(`Try to find ${this.entityName} #${id}, with map ${JSON.stringify(map)}...`);
+    this.logger.debug(`Try to find ${JSON.stringify(this.entityName)} #${id}, with map ${JSON.stringify(map)}...`);
     await this.beforeDBRead(id, map);
     const preparedWhere = where || {
       id
@@ -68,7 +68,7 @@ export class RepoReadService<T extends BaseEntity> {
   }
 
   async listNotDeleted(where: FindOptionsWhere<T>, order?: FindOptionsOrder<T>): Promise<ListResponse<T>> {
-    this.logger.debug(`Try to find not deleted ${this.entityName} items with WHERE ${JSON.stringify(where)} and ORDER ${JSON.stringify(order)}...`);
+    this.logger.debug(`Try to find not deleted ${JSON.stringify(this.entityName)} items with WHERE ${JSON.stringify(where)} and ORDER ${JSON.stringify(order)}...`);
     const res = await this.repo.findAndCount({ 
       where: { ...where, isDeleted: false } as FindOptionsWhere<T>,
       order: order || ({ tsCreate: 'ASC' } as FindOptionsOrder<T>)
