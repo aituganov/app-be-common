@@ -1,3 +1,5 @@
+import { TariffBaseEntity } from '..';
+
 export enum SubscriptionStatuses {
   New = 'new',
   Active = 'active',
@@ -9,3 +11,8 @@ export enum SubscriptionTypes {
   Paid = 'paid',
   Trial = 'trial'
 };
+
+export type SubscriptionPaymentData = {
+  subscriptionType: SubscriptionTypes;
+  tariff: TariffBaseEntity;
+}
