@@ -5,11 +5,11 @@ import { paymentColumnOpts } from '../../constants/payment.constant';
 import { PaymentCreateDTO } from '../../dto';
 import { AvailableCurrencies, PaymentReceiptStatuses, PaymentStatuses } from '../../types';
 import { FieldsValidation } from '../../validations';
-import { PaymentMethodEntity } from './payment-method.entity';
+import { PaymentMethodBaseEntity } from './payment-method.entity';
 
 export const PaymentEntityName = 'payment';
 
-export abstract class PaymentEntity extends BaseEntity {
+export abstract class PaymentBaseEntity extends BaseEntity {
   @Column('text', { nullable: true })
   providerId: string;
 
@@ -129,5 +129,5 @@ export abstract class PaymentEntity extends BaseEntity {
   abstract parseReceiptStatusFromProvider(receiptStatus: string): void;
   abstract parseStatusFromProvider(status: string): void;
   abstract prepareCurrencyForProvider(): string;
-  abstract updateFromProviderData(data: any, paymentMethods: PaymentMethodEntity): void;
+  abstract updateFromProviderData(data: any, paymentMethod: PaymentMethodBaseEntity): void;
 }

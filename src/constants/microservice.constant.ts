@@ -1,6 +1,7 @@
 export enum Microservices {
+  AppMain = 'APP_MAIN_MIC',
   Auth = 'AUTH_MIC',
-  Telegram = 'TG_MIC',
-  Payment = 'TG_PAY',
-  Subscription = 'TG_SUB',
+  Payment = 'PAY_MIC',
+  Subscription = 'SUB_MIC',
+  Telegram = 'TG_MIC'
 };

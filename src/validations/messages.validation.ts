@@ -3,6 +3,7 @@ const makeValidationOpts = (message: string) => ({ message });
 export const validationRequiredMessage = makeValidationOpts('The $property is required');
 export const validationArrayNotEmptyMessage = makeValidationOpts('The $property array must has at least $constraint1 element(s)');
 export const validationBooleanMessage = makeValidationOpts('The $property must be a boolean');
+export const validationDateMessage = makeValidationOpts('The $property must be a date');
 export const validationEmailMessage = makeValidationOpts('The $property must be a valid email');
 export const validationNumberMessage = makeValidationOpts('The $property must be a number');
 export const validationStringMessage = makeValidationOpts('The $property must be a string');

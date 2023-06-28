@@ -6,9 +6,9 @@ import { ColumnDecimalTransformer } from '../../transformers/index';
 import { FieldsValidation } from '../../validations/fields.validation';
 import { TariffDayPeriods, TariffTrialDayPeriods } from '../../constants/period.constant';
 
-export const TariffEntityName = 'tariff';
+export const TariffEntityName = 'project_tariff';
 
-export abstract class TariffEntity extends BaseEntity {
+export abstract class TariffBaseEntity extends BaseEntity {
   @Column('text')
   @MaxLength(FieldsValidation.Length.Name)
   title: string;

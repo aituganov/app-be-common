@@ -5,7 +5,7 @@ import { PaymentMethodDTO } from '../../dto/payments/payment-method.dto';
 
 export const PaymentMethodEntityName = 'payment_method';
 
-export class PaymentMethodEntity extends BaseEntity {
+export class PaymentMethodBaseEntity extends BaseEntity {
   @Column('text')
   methodId: string;
 

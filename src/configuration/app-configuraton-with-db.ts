@@ -1,8 +1,14 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import 'dotenv/config';
 import { DataSource, type DataSourceOptions } from 'typeorm';
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 const domainDefault = 'http://localhost';
+export const MS_APP_PORT_ENV = 'MS_APP_PORT';
+export const MS_APP_MAIN_PORT_ENV = 'MS_APP_MAIN_PORT';
+export const MS_AUTH_PORT_ENV = 'MS_AUTH_PORT';
+export const MS_PAY_PORT_ENV = 'MS_PAY_PORT';
+export const MS_SUB_PORT_ENV = 'MS_SUB_PORT';
+export const MS_TG_PORT_ENV = 'MS_TG_PORT';
 
 export class AppConfigurationWithDB {
   constructor(protected env: { [k: string]: string | undefined }) {}
@@ -46,8 +52,32 @@ export class AppConfigurationWithDB {
     return this.getValue('APP_HOST', false) || '127.0.0.1';
   }
   
-  getAppPort(): string {
-    return this.getValue('APP_PORT');
+  getAppPort(): number {
+    return +this.getValue('APP_PORT');
+  }
+
+  getMSAppPort(): number {
+    return +this.getValue(MS_APP_PORT_ENV, true);
+  }
+
+  getMSAppMainPort(): number {
+    return +this.getValue(MS_APP_MAIN_PORT_ENV, true);
+  }
+
+  getMSAuthPort(): number {
+    return +this.getValue(MS_AUTH_PORT_ENV, true);
+  }
+
+  getMSPayPort(): number {
+    return +this.getValue(MS_PAY_PORT_ENV, true);
+  }
+
+  getMSSubPort(): number {
+    return +this.getValue(MS_SUB_PORT_ENV, true);
+  }
+
+  getMSTgPort(): number {
+    return +this.getValue(MS_TG_PORT_ENV, true);
   }
 
   getDataSource(): DataSource {

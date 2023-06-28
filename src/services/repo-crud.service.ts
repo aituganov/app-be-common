@@ -17,9 +17,12 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
   }
   
   async entityCreate(dto: IBaseEntityCreateDTO, map: SimpleMap = {}): Promise<T> {
+    this.logger.debug(`Try to create ${this.entityName} with params #${JSON.stringify(dto)} and map ${map}...`);
     const e = BaseEntity.createFromDTO(this.entityClass, dto) as T;
     await this.beforeDBCreate(e, map);
-    return await this.saveToDB(e);
+    const $p = await this.saveToDB(e);
+    this.logger.debug('Created!');
+    return $p;
   }
 
   async create(dto: IBaseEntityCreateDTO, map: SimpleMap = {}): Promise<BaseResponse<T>> {
@@ -30,9 +33,12 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
   }
 
   async entityUpdate(e: T, dto: IBaseEntityUpdateDTO, map: SimpleMap = {}): Promise<T> {
+    this.logger.debug(`Try to update ${this.entityName} #${e.id} with params #${JSON.stringify(dto)} and map ${map}...`);
     e.updateFromDTO(dto);
     await this.beforeDBUpdate(e, map);
-    return await this.saveToDB(e);
+    const $p = await this.saveToDB(e);
+    this.logger.debug('Updated!');
+    return $p;
   }
 
   async update(dto: IBaseEntityUpdateDTO, map: SimpleMap = {}, where?: any): Promise<BaseResponse<T>> {
@@ -49,9 +55,12 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
   }
 
   async entityDelete(e: T, map: SimpleMap = {}): Promise<T> {
+    this.logger.debug(`Try to delete ${this.entityName} #${e.id} with map ${map}...`);
     e.delete();
     await this.beforeDBDelete(e, map);
-    return await this.saveToDB(e);
+    const $p = await this.saveToDB(e);
+    this.logger.debug('Deleted!');
+    return $p;
   }
 
   async delete(id: number, map: SimpleMap = {}, where?: any): Promise<BaseResponse<T>> {

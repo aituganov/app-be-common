@@ -12,6 +12,7 @@ export const FieldsValidation = {
       Code: 5,
       Number: 10
     },
+    Reason: 512,
     Telegram: {
       Message: 4096
     },

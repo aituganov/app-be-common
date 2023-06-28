@@ -8,6 +8,7 @@ import { type SimpleMap } from '../types';
 export type RepoReadParams<T extends BaseEntity> = {
   entityClass: (new () => T),
   entityName: MultilanguageMessage;
+  logger: Logger;
   readRelations?: FindOptionsRelations<T>;
   repo: Repository<T>;
 };
@@ -15,12 +16,14 @@ export type RepoReadParams<T extends BaseEntity> = {
 export class RepoReadService<T extends BaseEntity> {
   protected entityClass: (new () => T);
   protected entityName: MultilanguageMessage;
+  protected logger: Logger;
   protected readRelations: FindOptionsRelations<T>;
   protected readonly repo: Repository<T>
 
   constructor(params: RepoReadParams<T>) {
     this.entityClass = params.entityClass;
     this.entityName = params.entityName;
+    this.logger = params.logger;
     this.readRelations = params.readRelations;
     this.repo = params.repo;
   }
@@ -32,11 +35,16 @@ export class RepoReadService<T extends BaseEntity> {
   }
 
   async readEntity(id: number | string, map: SimpleMap = {}, where?: FindOptionsWhere<T>): Promise<T> {
+    this.logger.debug(`Try to find ${this.entityName} #${id}, with map ${map}...`);
     await this.beforeDBRead(id, map);
     const preparedWhere = where || {
       id
     } as FindOptionsWhere<T>;
-    const data = await this.repo.findOne({ where: preparedWhere, relations: this.readRelations });
+    this.logger.debug(`Prepared WHERE is ${where}`);
+    const data = await this.repo.findOne({
+      where: preparedWhere,
+      relations: this.readRelations
+    });
     if (!data) {
       throw new NotFoundException({
         en: `${this.entityName.en} not found`,
@@ -49,6 +57,7 @@ export class RepoReadService<T extends BaseEntity> {
         ru: `Доступ запрещен`
       });
     }
+    this.logger.debug('Found!');
     return data;
   }
 
@@ -59,10 +68,12 @@ export class RepoReadService<T extends BaseEntity> {
   }
 
   async listNotDeleted(where: FindOptionsWhere<T>, order?: FindOptionsOrder<T>): Promise<ListResponse<T>> {
+    this.logger.debug(`Try to find not deleted ${this.entityName} items with WHERE ${where} and ORDER ${order}...`);
     const res = await this.repo.findAndCount({ 
       where: { ...where, isDeleted: false } as FindOptionsWhere<T>,
       order: order || ({ tsCreate: 'ASC' } as FindOptionsOrder<T>)
     });
+    this.logger.debug(`Found ${res[1]} items!`);
     return new ListResponse<T>({
       items: res[0],
       count: res[1]
