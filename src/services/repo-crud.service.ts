@@ -17,7 +17,7 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
   }
   
   async entityCreate(dto: IBaseEntityCreateDTO, map: SimpleMap = {}): Promise<T> {
-    this.logger.debug(`Try to create ${this.entityName} with params #${JSON.stringify(dto)} and map ${map}...`);
+    this.logger.debug(`Try to create ${this.entityName} with params #${JSON.stringify(dto)} and map ${JSON.stringify(map)}...`);
     const e = BaseEntity.createFromDTO(this.entityClass, dto) as T;
     await this.beforeDBCreate(e, map);
     const $p = await this.saveToDB(e);
@@ -33,7 +33,7 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
   }
 
   async entityUpdate(e: T, dto: IBaseEntityUpdateDTO, map: SimpleMap = {}): Promise<T> {
-    this.logger.debug(`Try to update ${this.entityName} #${e.id} with params #${JSON.stringify(dto)} and map ${map}...`);
+    this.logger.debug(`Try to update ${this.entityName} #${e.id} with params #${JSON.stringify(dto)} and map ${JSON.stringify(map)}...`);
     e.updateFromDTO(dto);
     await this.beforeDBUpdate(e, map);
     const $p = await this.saveToDB(e);
@@ -55,7 +55,7 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
   }
 
   async entityDelete(e: T, map: SimpleMap = {}): Promise<T> {
-    this.logger.debug(`Try to delete ${this.entityName} #${e.id} with map ${map}...`);
+    this.logger.debug(`Try to delete ${this.entityName} #${e.id} with map ${JSON.stringify(map)}...`);
     e.delete();
     await this.beforeDBDelete(e, map);
     const $p = await this.saveToDB(e);
