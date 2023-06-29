@@ -1,5 +1,14 @@
 import { ClientProviderOptions } from '@nestjs/microservices';
-import { Microservices } from '..';
+
+export * from './messages.microservice';
+
+export enum Microservices {
+  AppMain = 'APP_MAIN_MIC',
+  Auth = 'AUTH_MIC',
+  Payment = 'PAY_MIC',
+  Subscription = 'SUB_MIC',
+  Telegram = 'TG_MIC'
+};
 
 export const prepareMicroserviceConfig = (name: Microservices, port: number): ClientProviderOptions => {
   return {
