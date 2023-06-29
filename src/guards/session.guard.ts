@@ -12,7 +12,6 @@ export class SessionGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    console.error(request);
     this.logger.debug('Try to check session from cookies through auth microservice...');
     const session = await firstValueFrom(this.client.send({ role: 'session', cmd: 'get' }, request.cookies));
     this.logger.debug(`Ready! Got ${JSON.stringify(session)}`);

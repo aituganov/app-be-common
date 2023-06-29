@@ -4,7 +4,6 @@ import { BaseEntity } from '../base.entity';
 import { SubscriptionCreateDTO } from '../../dto/subscriptions/subscription-create.dto';
 import { SubscriptionStatuses, SubscriptionTypes } from '../../types/subscription.type';
 import { FieldsValidation } from '../../validations/fields.validation';
-import { stat } from 'fs';
 
 export const SubscriptionEntityName = 'subscription';
 
@@ -89,7 +88,7 @@ export class SubscriptionBaseEntity extends BaseEntity {
   }
 
   cancel(reason: string) {
-    if (this.isCanceled) {
+    if (this.isCanceled || this.type === SubscriptionTypes.Trial) {
       return;
     }
     this.status = SubscriptionStatuses.Canceled;
