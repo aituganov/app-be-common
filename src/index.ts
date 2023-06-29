@@ -5,7 +5,6 @@ export * from './dto';
 export * from './entities';
 export * from './exceptions';
 export * from './filters';
-export * from './guards';
 export * from './interfaces';
 export * from './microservices';
 export * from './responses';
@@ -14,3 +13,4 @@ export * from './transformers';
 export * from './validations';
 export * from './types'
 export * from './utils';
+export * from './guards';

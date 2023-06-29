@@ -3,9 +3,9 @@ const SessionMessagePrefix = { role: 'session' };
 const SubscriptionMessagePrefix = { role: 'subscription' };
 const TelegramMessagePrefix = { role: 'telegram' };
 
-export const AppSubscriptionActivated = { ...AppMessagePrefix, cmd: 'subscription-activated' };
-export const AppSubscriptionCanceled = { ...AppMessagePrefix, cmd: 'subscription-canceled' };
-export const AppSubscriptionExpired = { ...AppMessagePrefix, cmd: 'subscription-expired' };
+export const MessageAppSubscriptionActivated = { ...AppMessagePrefix, cmd: 'subscription-activated' };
+export const MessageAppSubscriptionCanceled = { ...AppMessagePrefix, cmd: 'subscription-canceled' };
+export const MessageAppSubscriptionExpired = { ...AppMessagePrefix, cmd: 'subscription-expired' };
 
 export const MessageSessionGet = { ...SessionMessagePrefix, cmd: 'get' };
 
