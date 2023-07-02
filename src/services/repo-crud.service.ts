@@ -15,12 +15,29 @@ export class RepoCRUDService<T extends BaseEntity> extends RepoReadService<T> {
   protected async saveToDB(e: T): Promise<T> {
     return await this.repo.save(e);
   }
+
+  protected async saveEntitiesToDB(e: T[]): Promise<T[]> {
+    return await this.repo.save(e);
+  }
   
   async entityCreate(dto: IBaseEntityCreateDTO, map: SimpleMap = {}): Promise<T> {
     this.logger.debug(`Try to create ${JSON.stringify(this.entityName)} with params #${JSON.stringify(dto)} and map ${JSON.stringify(map)}...`);
     const e = BaseEntity.createFromDTO(this.entityClass, dto) as T;
     await this.beforeDBCreate(e, map);
     const $p = await this.saveToDB(e);
+    this.logger.debug('Created!');
+    return $p;
+  }
+
+  async entitiesCreate(dtos: IBaseEntityCreateDTO[], map: SimpleMap = {}): Promise<T[]> {
+    this.logger.debug(`Try to create ${JSON.stringify(this.entityName)}s with params #${JSON.stringify(dtos)} and map ${JSON.stringify(map)}...`);
+    const entities = [];
+    for (const dto of dtos) {
+      const e = BaseEntity.createFromDTO(this.entityClass, dto) as T;
+      await this.beforeDBCreate(e, map);
+      entities.push(e);
+    }
+    const $p = await this.saveEntitiesToDB(entities);
     this.logger.debug('Created!');
     return $p;
   }
