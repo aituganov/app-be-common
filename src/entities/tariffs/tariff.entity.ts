@@ -9,6 +9,9 @@ import { TariffDayPeriods, TariffTrialDayPeriods } from '../../constants/period.
 export const TariffEntityName = 'project_tariff';
 
 export abstract class TariffBaseEntity extends BaseEntity {
+  @Column('int')
+  projectId: number;
+
   @Column('text')
   @MaxLength(FieldsValidation.Length.Name)
   title: string;

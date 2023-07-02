@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { FindOptionsOrder, FindOptionsRelations, FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsOrder, FindOptionsRelations, FindOptionsWhere, In, Repository } from 'typeorm';
 import { BaseEntity } from '../entities/base.entity';
 import { BadRequestException, NotFoundException } from '../exceptions';
 import { MultilanguageMessage, BaseResponse, ListResponse } from '../responses';
@@ -32,6 +32,13 @@ export class RepoReadService<T extends BaseEntity> {
 
   protected async checkAccess(e: T, map: SimpleMap): Promise<Boolean> {
     return true;
+  }
+
+  async getMapByIds(ids: number[]): Promise<{ [id: string]: T }> {
+    const res = await this.listNotDeleted({ id: In(ids) } as FindOptionsWhere<T>);
+    const map = {};
+    res.data.items.forEach(item => map[item.id] = item);
+    return map;
   }
 
   async readEntity(id: number | string, map: SimpleMap = {}, where?: FindOptionsWhere<T>): Promise<T> {

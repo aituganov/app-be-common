@@ -4,6 +4,7 @@ import { BaseEntity } from '../base.entity';
 import { SubscriptionCreateDTO } from '../../dto/subscriptions/subscription-create.dto';
 import { SubscriptionStatuses, SubscriptionTypes } from '../../types/subscription.type';
 import { FieldsValidation } from '../../validations/fields.validation';
+import { TariffBaseEntity } from '../tariffs/tariff.entity';
 
 export const SubscriptionEntityName = 'subscription';
 
@@ -43,6 +44,8 @@ export class SubscriptionBaseEntity extends BaseEntity {
 
   @Column('timestamptz')
   tsTo: Date;
+
+  tariff: TariffBaseEntity;
 
   get isNew(): boolean {
     return this.status === SubscriptionStatuses.New;
