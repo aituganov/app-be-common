@@ -78,29 +78,4 @@ export class SubscriptionBaseEntity extends BaseEntity {
     this.tsFrom = dto.tsFrom;
     this.tsTo = dto.tsTo;
   }
-
-  activate(): boolean {
-    if (this.isActive) {
-      return false;
-    }
-    this.status = SubscriptionStatuses.Active;
-    return true;
-  }
-
-  cancel(reason: string) {
-    if (this.isCanceled || this.type === SubscriptionTypes.Trial) {
-      return;
-    }
-    this.status = SubscriptionStatuses.Canceled;
-    this.cancelationReason = reason;
-    return true;
-  }
-
-  expire() {
-    if (this.isExpired || this.tsTo > new Date()) {
-      return false;
-    }
-    this.status = SubscriptionStatuses.Expired;
-    return true;
-  }
 }

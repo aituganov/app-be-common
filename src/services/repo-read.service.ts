@@ -71,7 +71,8 @@ export class RepoReadService<T extends BaseEntity> {
     this.logger.debug(`Try to find not deleted ${JSON.stringify(this.entityName)} items with WHERE ${JSON.stringify(where)} and ORDER ${JSON.stringify(order)}...`);
     const res = await this.repo.findAndCount({ 
       where: { ...where, isDeleted: false } as FindOptionsWhere<T>,
-      order: order || ({ tsCreate: 'ASC' } as FindOptionsOrder<T>)
+      order: order || ({ tsCreate: 'ASC' } as FindOptionsOrder<T>),
+      relations: this.readRelations
     });
     this.logger.debug(`Found ${res[1]} items!`);
     return new ListResponse<T>({

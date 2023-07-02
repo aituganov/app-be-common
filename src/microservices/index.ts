@@ -1,5 +1,6 @@
 import { ClientProviderOptions } from '@nestjs/microservices';
 
+export * from './events.microservices';
 export * from './messages.microservice';
 
 export enum Microservices {
