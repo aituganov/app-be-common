@@ -56,9 +56,16 @@ export class ChatMemberDTO {
   chatIds: number[];
 
   @IsInt(validationNumberMessage)
+  subscriptionId: number;
+
+  @IsInt(validationNumberMessage)
   @Transform(dtoNumberTransformer)
   userId: number;
 
+  @IsOptional()
+  @IsString({ ...validationStringMessage, each: true })
+  links?: string[];
+  
   @IsOptional()
   @IsString(validationStringMessage)
   messagePrefix?: string;
