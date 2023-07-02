@@ -24,3 +24,5 @@ export class DecimalMoneyTransformer {
     return +data;
   }
 }
+
+export const dtoNumberTransformer = ({ value }) => +value;

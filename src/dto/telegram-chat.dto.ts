@@ -2,7 +2,8 @@ import { ArrayNotEmpty, IsEnum, IsInt, IsOptional, IsString, IsUrl, MaxLength, V
 import { TelegramChatTypes, TelegramMessageStatuses } from '../entities';
 import { IBaseEntityCreateDTO } from '../interfaces/base-entity-create-dto.interface';
 import { FieldsValidation, validationArrayNotEmptyMessage, validationLengthMaxMessage, validationNumberMessage, validationStringMessage, validationUrlMessage } from '../validations';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
+import { dtoNumberTransformer } from '..';
 
 export class TelegramChatDTO implements IBaseEntityCreateDTO {
   @IsString(validationStringMessage)
@@ -48,9 +49,19 @@ export class ChatButtonDTO {
   url: string;
 }
 
-export class ChatMemberDTO extends ChatDTO {
-  @IsInt(validationNumberMessage )
+export class ChatMemberDTO {
+  @IsInt({ ...validationNumberMessage, each: true })
+  @ArrayNotEmpty(validationArrayNotEmptyMessage)
+  @Transform(dtoNumberTransformer)
+  chatIds: number[];
+
+  @IsInt(validationNumberMessage)
+  @Transform(dtoNumberTransformer)
   userId: number;
+
+  @IsOptional()
+  @IsString(validationStringMessage)
+  messagePrefix?: string;
 }
 
 export class NotificationDTO extends ChatDTO implements IBaseEntityCreateDTO {
