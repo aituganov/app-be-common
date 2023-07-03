@@ -1,11 +1,14 @@
 const AppMessagePrefix = { role: 'application' };
 const SessionMessagePrefix = { role: 'session' };
+const PaymentMessagePrefix = { role: 'payment' };
 const SubscriptionMessagePrefix = { role: 'subscription' };
 const TelegramMessagePrefix = { role: 'telegram' };
 const UserMessagePrefix = { role: 'user' };
 
 export const MessageSessionGet = { ...SessionMessagePrefix, cmd: 'get' };
 export const MessageUserGetMapByIds = { ...UserMessagePrefix, cmd: 'get-map-by-ids' };
+
+export const MessagePaymentsRepeat = { ...PaymentMessagePrefix, cmd: 'items-repeat' };
 
 export const MessageSubscriptionGetPaymentData = { ...SubscriptionMessagePrefix, cmd: 'get-payment-data' };
 export const MessageSubscriptionCancel = { ...SubscriptionMessagePrefix, cmd: 'cancel' };

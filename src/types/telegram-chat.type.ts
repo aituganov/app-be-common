@@ -1,7 +1,7 @@
 export type TelegramChatMember = {
   error?: any;
-  userId: number;
-  chatIds: number[];
+  userId: string;
+  chatIds: string[];
   links: string[];
   subscriptionId: number;
 };

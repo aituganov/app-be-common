@@ -28,3 +28,15 @@ export enum PaymentStatuses {
   Succeeded = 'succeeded',
   Waiting = 'waiting'
 };
+
+export type PaymentsRepeatResponseItem = {
+  paymentId: number;
+  paymentRepeatId?: number;
+  subscriptionId: number;
+  success: boolean;
+  error?: any;
+}
+
+export type PaymentsRepeatResponse = {
+  items: PaymentsRepeatResponseItem[];
+}

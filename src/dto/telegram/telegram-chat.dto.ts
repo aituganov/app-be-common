@@ -1,9 +1,8 @@
 import { ArrayNotEmpty, IsEnum, IsInt, IsOptional, IsString, IsUrl, MaxLength, ValidateNested } from 'class-validator';
-import { TelegramChatTypes, TelegramMessageStatuses } from '../entities';
-import { IBaseEntityCreateDTO } from '../interfaces/base-entity-create-dto.interface';
-import { FieldsValidation, validationArrayNotEmptyMessage, validationLengthMaxMessage, validationNumberMessage, validationStringMessage, validationUrlMessage } from '../validations';
-import { Transform, Type } from 'class-transformer';
-import { dtoNumberTransformer } from '..';
+import { TelegramChatTypes, TelegramMessageStatuses } from '../../entities';
+import { IBaseEntityCreateDTO } from '../../interfaces/base-entity-create-dto.interface';
+import { FieldsValidation, validationArrayNotEmptyMessage, validationLengthMaxMessage, validationNumberMessage, validationStringMessage, validationUrlMessage } from '../../validations';
+import { Type } from 'class-transformer';
 
 export class TelegramChatDTO implements IBaseEntityCreateDTO {
   @IsString(validationStringMessage)
@@ -36,7 +35,7 @@ export class TelegramChatDTO implements IBaseEntityCreateDTO {
 }
 
 export class ChatDTO {
-  @IsInt({ message: 'Chat id required in number format: positive for peoples, negative for chats' })
+  @IsString({ message: 'Chat id required in follow format: positive for peoples, negative for chats' })
   chatId: number;
 }
 
@@ -50,17 +49,15 @@ export class ChatButtonDTO {
 }
 
 export class ChatMemberDTO {
-  @IsInt({ ...validationNumberMessage, each: true })
+  @IsString({ ...validationNumberMessage, each: true })
   @ArrayNotEmpty(validationArrayNotEmptyMessage)
-  @Transform(dtoNumberTransformer)
-  chatIds: number[];
+  chatIds: string[];
 
   @IsInt(validationNumberMessage)
   subscriptionId: number;
 
-  @IsInt(validationNumberMessage)
-  @Transform(dtoNumberTransformer)
-  userId: number;
+  @IsString(validationNumberMessage)
+  userId: string;
 
   @IsOptional()
   @IsString({ ...validationStringMessage, each: true })
