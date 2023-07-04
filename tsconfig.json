@@ -9,9 +9,6 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "moduleResolution": "node",
   },
   "exclude": [
