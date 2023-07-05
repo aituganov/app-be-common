@@ -36,7 +36,7 @@ export class AppConfigurationWithDB {
       password: this.getValue('DB_PWD'),
       database: this.getValue('DB_NAME'),
       entities: this.getEntities(),
-      logger: 'simple-console',
+      logger: 'advanced-console',
       logging: 'all',
       migrations: this.getMigrations(),
       migrationsRun: true,
