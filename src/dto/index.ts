@@ -4,6 +4,7 @@ export * from './payments/payment-method.dto';
 export * from './payments/payment-repeat.dto';
 export * from './subscriptions/subscription-cancel.dto';
 export * from './subscriptions/subscription-create.dto';
+export * from './subscriptions/subscription-get.dto';
 export * from './subscriptions/subscription-get-payment-data.dto';
 export * from './subscriptions/subscription-init.dto';
 export * from './telegram/telegram-chat.dto';

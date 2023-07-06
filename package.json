@@ -1,6 +1,6 @@
 {
   "name": "@v.aituganov/app-be-common",
-  "version": "0.0.132",
+  "version": "0.0.133",
   "description": "Modules && types for personal app",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",

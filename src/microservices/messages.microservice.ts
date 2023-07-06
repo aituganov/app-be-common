@@ -13,6 +13,7 @@ export const MessagePaymentsRepeat = { ...PaymentMessagePrefix, cmd: 'items-repe
 export const MessageSubscriptionGetPaymentData = { ...SubscriptionMessagePrefix, cmd: 'get-payment-data' };
 export const MessageSubscriptionCancel = { ...SubscriptionMessagePrefix, cmd: 'cancel' };
 export const MessageSubscriptionCreate = { ...SubscriptionMessagePrefix, cmd: 'create' };
+export const MessageSubscriptionGet = { ...SubscriptionMessagePrefix, cmd: 'get' };
 
 export const MessageTgGetBotInfo = { ...TelegramMessagePrefix, cmd: 'get-bot-info' };
 export const MessageTgChatMemberInvite = { ...TelegramMessagePrefix, cmd: 'chat-member-invite' };
