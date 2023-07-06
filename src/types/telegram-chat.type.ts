@@ -3,6 +3,7 @@ export type TelegramChatMember = {
   userId: string;
   chatIds: string[];
   links: string[];
+  paymentId: number;
   subscriptionId: number;
 };
 

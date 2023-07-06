@@ -54,6 +54,9 @@ export class ChatMemberDTO {
   chatIds: string[];
 
   @IsInt(validationNumberMessage)
+  paymentId: number;
+  
+  @IsInt(validationNumberMessage)
   subscriptionId: number;
 
   @IsString(validationNumberMessage)
