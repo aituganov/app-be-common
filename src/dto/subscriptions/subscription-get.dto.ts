@@ -1,5 +1,5 @@
 import { IsNumber } from 'class-validator';
-import { validationNumberMessage } from 'src/validations';
+import { validationNumberMessage } from '../../validations';
 
 export class SubscriptioGetDTO {
   @IsNumber({ }, validationNumberMessage)
