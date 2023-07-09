@@ -81,7 +81,7 @@ export class FileService {
   }
 
   protected async saveFromBase64(base64: string, innerDir: string, prefixName?: string): Promise<string> {
-    const uploadPath = this.prepareDirectoryStructure(innerDir, prefixName);
+    const uploadPath = await this.prepareDirectoryStructure(innerDir, prefixName);
 
     //Find extension of file
     const ext = base64.substring(base64.indexOf('/')+1, base64.indexOf(';base64'));
