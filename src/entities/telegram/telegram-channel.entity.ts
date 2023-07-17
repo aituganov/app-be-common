@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { MaxLength } from 'class-validator';
 import { Column } from 'typeorm';
 import { BaseEntity } from '../base.entity';
@@ -66,6 +67,7 @@ export class TelegramChatEntity extends BaseEntity {
   @Column('boolean', { default: false })
   botAdded: boolean;
   
+  @Exclude()
   @Column('text', { nullable: true })
   botToken: string;
 
