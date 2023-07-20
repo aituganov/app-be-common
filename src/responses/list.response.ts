@@ -1,18 +1,25 @@
 import { BaseError, BaseResponse } from './base.response';
 
-export type ListResponsParams<T> = {
+export type ListResponseParams<T> = {
   items: T[];
   count: number;
   map?: { [id: string]: any };
 };
 
-export class ListResponse<T> extends BaseResponse<ListResponsParams<T>> {
-  data: ListResponsParams<T>;
+export class ListResponse<T> extends BaseResponse<ListResponseParams<T>> {
+  data: ListResponseParams<T>;
 
-  constructor(data?: ListResponsParams<T>, error?: BaseError) {
+  constructor(data?: ListResponseParams<T>, error?: BaseError) {
     super({
       data,
       error
+    });
+  }
+
+  static makeEmptyResponse(): ListResponse<any> {
+    return new ListResponse({
+      items: [],
+      count: 0
     });
   }
 }
