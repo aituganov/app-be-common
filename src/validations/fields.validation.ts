@@ -5,6 +5,7 @@ export const FieldsValidation = {
     Error: 4096,
     Cover: 256,
     Email: 320,
+    EmailBody: 384000,
     Payment: {
       Description: 128
     },
