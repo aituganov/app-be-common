@@ -3,21 +3,25 @@ import { FieldsValidation, validationStringMessage, validationLengthMaxMessage }
 
 export class MailerSendDTO {
   @IsString(validationStringMessage)
-  @MaxLength(FieldsValidation.Length.Email, validationLengthMaxMessage)
+  @MaxLength(FieldsValidation.Length.Email.Address, validationLengthMaxMessage)
   to: string;
+  
+  @IsString(validationStringMessage)
+  @MaxLength(FieldsValidation.Length.Email.Subject, validationLengthMaxMessage)
+  subject: string;
 
   @IsOptional()
   @IsString(validationStringMessage)
-  @MaxLength(FieldsValidation.Length.Email, validationLengthMaxMessage)
+  @MaxLength(FieldsValidation.Length.Email.Address, validationLengthMaxMessage)
   from?: string;
 
   @IsOptional()
   @IsString(validationStringMessage)
-  @MaxLength(FieldsValidation.Length.EmailBody, validationLengthMaxMessage)
+  @MaxLength(FieldsValidation.Length.Email.Body, validationLengthMaxMessage)
   text?: string;
 
   @IsOptional()
   @IsString(validationStringMessage)
-  @MaxLength(FieldsValidation.Length.EmailBody, validationLengthMaxMessage)
+  @MaxLength(FieldsValidation.Length.Email.Body, validationLengthMaxMessage)
   html?: string;
 }

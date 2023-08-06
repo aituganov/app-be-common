@@ -19,7 +19,7 @@ export class PaymentInitDTO {
   @Transform(validationBooleanTransform)
   customerAgree: boolean;
 
-  @MaxLength(FieldsValidation.Length.Email)
+  @MaxLength(FieldsValidation.Length.Email.Address)
   @IsEmail({ }, validationEmailMessage)
   email: string;
 

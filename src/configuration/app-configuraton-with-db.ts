@@ -6,7 +6,9 @@ const domainDefault = 'http://localhost';
 export const MS_APP_PORT_ENV = 'MS_APP_PORT';
 export const MS_APP_MAIN_PORT_ENV = 'MS_APP_MAIN_PORT';
 export const MS_AUTH_PORT_ENV = 'MS_AUTH_PORT';
+export const MS_MAILER_PORT_ENV = 'MS_MAILER_PORT';
 export const MS_PAY_PORT_ENV = 'MS_PAY_PORT';
+export const MS_SMS_PORT_ENV = 'MS_SMS_PORT';
 export const MS_SUB_PORT_ENV = 'MS_SUB_PORT';
 export const MS_TG_PORT_ENV = 'MS_TG_PORT';
 
@@ -68,8 +70,16 @@ export class AppConfigurationWithDB {
     return +this.getValue(MS_AUTH_PORT_ENV, true);
   }
 
+  getMSMailerPort(): number {
+    return +this.getValue(MS_MAILER_PORT_ENV, false);
+  }
+
   getMSPayPort(): number {
     return +this.getValue(MS_PAY_PORT_ENV, true);
+  }
+
+  getMSSmsPort(): number {
+    return +this.getValue(MS_SMS_PORT_ENV, false);
   }
 
   getMSSubPort(): number {

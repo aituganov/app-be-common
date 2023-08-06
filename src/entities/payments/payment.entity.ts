@@ -25,7 +25,7 @@ export abstract class PaymentBaseEntity extends BaseEntity {
   @Column('int', { nullable: true })
   parentPaymentId: number;
 
-  @MaxLength(FieldsValidation.Length.Email)
+  @MaxLength(FieldsValidation.Length.Email.Address)
   @Column('text', { nullable: true })
   email: string;
 

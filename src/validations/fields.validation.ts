@@ -4,8 +4,11 @@ export const FieldsValidation = {
     Description: 256,
     Error: 4096,
     Cover: 256,
-    Email: 320,
-    EmailBody: 384000,
+    Email: {
+      Address: 320,
+      Body: 384000,
+      Subject: 998
+    },
     Payment: {
       Description: 128
     },
