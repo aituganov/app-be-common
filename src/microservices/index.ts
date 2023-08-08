@@ -8,6 +8,7 @@ export enum Microservices {
   Auth = 'AUTH_MIC',
   Mailer = 'MAIL_MIC',
   Payment = 'PAY_MIC',
+  SMS = 'SMS_MIC',
   Subscription = 'SUB_MIC',
   Telegram = 'TG_MIC'
 };

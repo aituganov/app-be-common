@@ -9,6 +9,11 @@ export const FieldsValidation = {
       Body: 384000,
       Subject: 998
     },
+    SMS: {
+      Phone: 15,
+      SenderName: 11,
+      Text: 737
+    },
     Payment: {
       Description: 128
     },

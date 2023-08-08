@@ -1,5 +1,6 @@
 const AppMessagePrefix = { role: 'application' };
 const MailMessagePrefix = { role: 'mailer' };
+const SmsMessagePrefix = { role: 'sms' };
 const SessionMessagePrefix = { role: 'session' };
 const PaymentMessagePrefix = { role: 'payment' };
 const SubscriptionMessagePrefix = { role: 'subscription' };
@@ -7,6 +8,7 @@ const TelegramMessagePrefix = { role: 'telegram' };
 const UserMessagePrefix = { role: 'user' };
 
 export const MessageMailSend = { ...MailMessagePrefix, cmd: 'send' };
+export const MessageSmsSend = { ...SmsMessagePrefix, cmd: 'send' };
 
 export const MessageSessionGet = { ...SessionMessagePrefix, cmd: 'get' };
 export const MessageUserGetMapByIds = { ...UserMessagePrefix, cmd: 'get-map-by-ids' };
