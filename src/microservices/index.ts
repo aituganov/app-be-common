@@ -13,11 +13,17 @@ export enum Microservices {
   Telegram = 'TG_MIC'
 };
 
-export const prepareMicroserviceConfig = (name: Microservices, port: number): ClientProviderOptions => {
+export const prepareMicroserviceConfig = (name: Microservices, port: number, host = '127.0.0.1'): ClientProviderOptions => {
   return {
     name,
     options : {
+      host,
       port
     }
   };
+}
+
+export const prepareMicroserviceConfigFromUrl = (name: Microservices, url: string): ClientProviderOptions => {
+  const parts = url.split(':');
+  return prepareMicroserviceConfig(name, +parts[1], parts[0]);
 }
