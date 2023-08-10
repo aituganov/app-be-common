@@ -5,12 +5,19 @@ import { DataSource, type DataSourceOptions } from 'typeorm';
 const domainDefault = 'http://localhost';
 export const MS_APP_PORT_ENV = 'MS_APP_PORT';
 export const MS_APP_MAIN_PORT_ENV = 'MS_APP_MAIN_PORT';
+export const MS_APP_MAIN_URL_ENV = 'MS_APP_MAIN_URL';
 export const MS_AUTH_PORT_ENV = 'MS_AUTH_PORT';
+export const MS_AUTH_URL_ENV = 'MS_AUTH_URL';
 export const MS_MAILER_PORT_ENV = 'MS_MAILER_PORT';
+export const MS_MAILER_URL_ENV = 'MS_MAILER_URL';
 export const MS_PAY_PORT_ENV = 'MS_PAY_PORT';
+export const MS_PAY_URL_ENV = 'MS_PAY_URL';
 export const MS_SMS_PORT_ENV = 'MS_SMS_PORT';
+export const MS_SMS_URL_ENV = 'MS_SMS_URL';
 export const MS_SUB_PORT_ENV = 'MS_SUB_PORT';
+export const MS_SUB_URL_ENV = 'MS_SUB_URL';
 export const MS_TG_PORT_ENV = 'MS_TG_PORT';
+export const MS_TG_URL_ENV = 'MS_TG_URL';
 
 export class AppConfigurationWithDB {
   constructor(protected env: { [k: string]: string | undefined }) {}
@@ -59,35 +66,63 @@ export class AppConfigurationWithDB {
   }
 
   getMSAppPort(): number {
-    return +this.getValue(MS_APP_PORT_ENV, true);
+    return +this.getValue(MS_APP_PORT_ENV);
   }
 
   getMSAppMainPort(): number {
-    return +this.getValue(MS_APP_MAIN_PORT_ENV, true);
+    return +this.getValue(MS_APP_MAIN_PORT_ENV);
+  }
+
+  getMSAppMainUrl(): string {
+    return this.getValue(MS_APP_MAIN_URL_ENV);
   }
 
   getMSAuthPort(): number {
-    return +this.getValue(MS_AUTH_PORT_ENV, true);
+    return +this.getValue(MS_AUTH_PORT_ENV);
+  }
+
+  getMSAuthUrl(): string {
+    return this.getValue(MS_AUTH_URL_ENV);
   }
 
   getMSMailerPort(): number {
     return +this.getValue(MS_MAILER_PORT_ENV, false);
   }
 
+  getMSMailerUrl(): string {
+    return this.getValue(MS_MAILER_URL_ENV, false);
+  }
+
   getMSPayPort(): number {
-    return +this.getValue(MS_PAY_PORT_ENV, true);
+    return +this.getValue(MS_PAY_PORT_ENV);
+  }
+
+  getMSPayUrl(): string {
+    return this.getValue(MS_PAY_URL_ENV);
   }
 
   getMSSmsPort(): number {
     return +this.getValue(MS_SMS_PORT_ENV, false);
   }
 
+  getMSSmsUrl(): string {
+    return this.getValue(MS_SMS_URL_ENV, false);
+  }
+
   getMSSubPort(): number {
-    return +this.getValue(MS_SUB_PORT_ENV, true);
+    return +this.getValue(MS_SUB_PORT_ENV);
+  }
+
+  getMSSubUrl(): string {
+    return this.getValue(MS_SUB_URL_ENV);
   }
 
   getMSTgPort(): number {
-    return +this.getValue(MS_TG_PORT_ENV, true);
+    return +this.getValue(MS_TG_PORT_ENV);
+  }
+
+  getMSTgUrl(): string {
+    return this.getValue(MS_TG_URL_ENV);
   }
 
   getDataSource(): DataSource {
