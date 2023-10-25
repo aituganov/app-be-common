@@ -24,6 +24,12 @@ export abstract class TariffBaseEntity extends BaseEntity {
   @MaxLength(FieldsValidation.Length.Description)
   descriptionPublic: string;
 
+  @Column('text', {
+    array: true,
+    nullable: true
+  })
+  features: string[];
+
   @Min(TariffDayPeriods.Week)
   @Max(TariffDayPeriods.Onetime)
   @Column('int', { default: TariffDayPeriods.Month })
@@ -45,6 +51,36 @@ export abstract class TariffBaseEntity extends BaseEntity {
     transformer: new ColumnDecimalTransformer()
   })
   price: number;
+
+  @Min(FieldsValidation.Price.Min)
+  @Max(FieldsValidation.Price.Max)
+  @Column('decimal', {
+    nullable: true,
+    precision: 38,
+    scale: 19,
+    transformer: new ColumnDecimalTransformer()
+  })
+  price6m: number;
+
+  @Min(FieldsValidation.Price.Min)
+  @Max(FieldsValidation.Price.Max)
+  @Column('decimal', {
+    nullable: true,
+    precision: 38,
+    scale: 19,
+    transformer: new ColumnDecimalTransformer()
+  })
+  price1y: number;
+
+  @Min(FieldsValidation.Price.Min)
+  @Max(FieldsValidation.Price.Max)
+  @Column('decimal', {
+    nullable: true,
+    precision: 38,
+    scale: 19,
+    transformer: new ColumnDecimalTransformer()
+  })
+  price2y: number;
 
   @Column('enum', {
     enum: Object.values(AvailableCurrencies),

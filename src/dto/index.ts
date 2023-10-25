@@ -9,4 +9,5 @@ export * from './subscriptions/subscription-create.dto';
 export * from './subscriptions/subscription-get.dto';
 export * from './subscriptions/subscription-get-payment-data.dto';
 export * from './subscriptions/subscription-init.dto';
+export * from './subscriptions/subscription-trial-init.dto';
 export * from './telegram/telegram-chat.dto';
