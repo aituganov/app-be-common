@@ -1,12 +1,13 @@
-import { Type } from 'class-transformer';
-import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
-import { validationNumberMessage, validationStringMessage } from '../../validations/messages.validation';
-import { FieldsValidation } from '../../validations/fields.validation';
+import { Transform, Type } from 'class-transformer';
+import { IsBoolean, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+import { validationBooleanMessage, validationNumberMessage, validationStringMessage } from '../../validations/messages.validation';
+import { FieldsValidation, validationBooleanTransform } from '../../validations/fields.validation';
+import { SubscriptionGetPaymentDataDTO } from './subscription-get-payment-data.dto';
 
-export class SubscriptionTrialInitDTO  {
-  @IsNumber({ }, validationNumberMessage)
-  @Type(() => Number)
-  customerId: number;
+export class SubscriptionTrialInitDTO  extends SubscriptionGetPaymentDataDTO {
+  @IsBoolean(validationBooleanMessage)
+  @Transform(validationBooleanTransform)
+  checkByTariff: boolean;
 
   @IsOptional()
   @IsNumber({ }, validationNumberMessage)
@@ -17,9 +18,4 @@ export class SubscriptionTrialInitDTO  {
   @IsString(validationStringMessage)
   @MaxLength(FieldsValidation.Length.Description)
   description?: string;
-
-  @IsOptional()
-  @IsNumber({ }, validationNumberMessage)
-  @Type(() => Number)
-  tariffId?: number;
 }
